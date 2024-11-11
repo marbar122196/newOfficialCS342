@@ -19,6 +19,7 @@ public class JavaFXTemplate extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		Font.loadFont(getClass().getResourceAsStream("/DotGothic16-Regular.ttf"), 20);
 		primaryStage.setTitle("Three Card Poker");
 		theDealer = new Dealer();
 		playerOne = new Player();

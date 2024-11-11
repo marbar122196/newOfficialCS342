@@ -1,21 +1,24 @@
 package components;
 
 import gamelogic.*;
-
+import javafx.stage.Modality;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 public class StartNewGameController {
     private Dealer dealer;
     private Player playerOne;
     private Player playerTwo;
-//    private Stage primaryStage;
+    private Stage primaryStage;  // Primary stage for the main game
 
     @FXML private BorderPane rootPane;
 
@@ -62,20 +65,36 @@ public class StartNewGameController {
 //        this.playerTwo = playerTwo;
 //        this.primaryStage = primaryStage;
 //    }
+
     public void initialize() {
         // Set up any default values, placeholders, or initial UI state here.
         gameCommentary.setText("Hello! Please enter a name and ante wager to start. Min bet: $5, Max bet: $25.");
 
 //        optionsButton.setOnAction(event -> showOptionsMenu());
-//        rulesButton.setOnAction(event -> showRulesScreen());
+        rulesButton.setOnAction(event -> showRulesScreen());
     }
+
 //    private void showOptionsMenu() {
 //        OptionsMenu optionsMenu = new OptionsMenu(playerOne, playerTwo, dealer, primaryStage);
 //        optionsMenu.show(primaryStage);
 //    }
-//
-//    private void showRulesScreen() {
-//        RulesScreen rulesScreen = new RulesScreen();
-//        rulesScreen.show(primaryStage);
-//    }
+    @FXML
+    private void showRulesScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RulesScreen.fxml"));
+            Parent root = loader.load();
+
+            Scene rulesScene = new Scene(root);
+            rulesScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+
+            Stage rulesStage = new Stage();
+            rulesStage.initModality(Modality.APPLICATION_MODAL);
+            rulesStage.setTitle("Rules");
+            rulesStage.setScene(rulesScene);
+            rulesStage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
