@@ -1,3 +1,8 @@
 /Users/codarichmond/newOfficialCS342/JavaFX_MavenTemplate_VS1 2/src/main/java/JavaFXTemplate.java
 /Users/codarichmond/newOfficialCS342/JavaFX_MavenTemplate_VS1 2/src/main/java/components/StartNewGameController.java
 /Users/codarichmond/newOfficialCS342/JavaFX_MavenTemplate_VS1 2/src/main/java/components/WelcomeScreenController.java
+/Users/codarichmond/newOfficialCS342/JavaFX_MavenTemplate_VS1 2/src/main/java/gamelogic/Card.java
+/Users/codarichmond/newOfficialCS342/JavaFX_MavenTemplate_VS1 2/src/main/java/gamelogic/Dealer.java
+/Users/codarichmond/newOfficialCS342/JavaFX_MavenTemplate_VS1 2/src/main/java/gamelogic/Deck.java
+/Users/codarichmond/newOfficialCS342/JavaFX_MavenTemplate_VS1 2/src/main/java/gamelogic/Player.java
+/Users/codarichmond/newOfficialCS342/JavaFX_MavenTemplate_VS1 2/src/main/java/gamelogic/ThreeCardLogic.java
