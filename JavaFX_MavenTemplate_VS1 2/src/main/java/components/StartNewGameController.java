@@ -94,6 +94,7 @@ public class StartNewGameController {
     public void initialize() {
         // Set up any default values, placeholders, or initial UI state here.
         gameCommentary.setText("Hello! Please enter a name and ante wager to start. Min bet: $5, Max bet: $25.");
+        initializeGame(playerOne, playerTwo, dealer);
 
 //        optionsButton.setOnAction(event -> showOptionsMenu());
         rulesButton.setOnAction(event -> showRulesScreen());
