@@ -6,6 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
+
+
 
 public class JavaFXTemplate extends Application {
 	Player playerOne;
@@ -36,6 +40,10 @@ public class JavaFXTemplate extends Application {
 		Parent gameRoot = gameLoader.load();
 		Scene gameScene = new Scene(gameRoot);
 		gameScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+
+		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+		primaryStage.setX((screenBounds.getWidth() - 1500) / 2); // Adjust 1500 to match the width of your window
+		primaryStage.setY((screenBounds.getHeight() - 800) / 2);
 
 		// Initialize the game controller with the primary stage and game data
 		StartNewGameController gameController = gameLoader.getController();
