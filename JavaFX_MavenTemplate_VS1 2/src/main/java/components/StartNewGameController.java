@@ -108,7 +108,20 @@ public class StartNewGameController {
 
         antePlayerOne.setOnAction(event -> {
             if (enableDeal() == 1){
-                setupListeners();;
+                antePlayerOne.setEditable(false);
+                setupListeners();
+            }
+        });
+
+        pairPlusPlayerOne.setOnAction(event ->{
+            if(checkPairPlus() == 0){
+                gameCommentary.setText("Player 1's pair plus bet is valid");
+                pairPlusPlayerOne.setEditable(false);
+                playerOne.setPairPlusBet(Integer.parseInt(pairPlusPlayerOne.getText()));
+            }
+            else{
+                dealGame.setDisable(true);
+                gameCommentary.setText("Pair plus bet is invalid");
             }
         });
 
@@ -123,7 +136,20 @@ public class StartNewGameController {
 
         antePlayerTwo.setOnAction(event -> {
             if (enableDeal() == 1){
-                setupListeners();;
+                antePlayerTwo.setEditable(false);
+                setupListeners();
+            }
+        });
+
+        pairPlusPlayerTwo.setOnAction(event ->{
+            if(checkPairPlus() == 0){
+                gameCommentary.setText("Player Twos pair plus bet is valid!");
+                pairPlusPlayerTwo.setEditable(false);
+                playerTwo.setPairPlusBet(Integer.parseInt(pairPlusPlayerTwo.getText()));
+            }
+            else{
+                dealGame.setDisable(true);
+                gameCommentary.setText("Pair plus bet is invalid");
             }
         });
 
@@ -246,21 +272,13 @@ private void showOptionsMenu() {
 
 //        dealGame.setOnAction(event -> startDeal());
         // Add action listeners for buttons and text fields
-        namePlayerOne.setOnAction(event -> {
-            playerOnePlay.setDisable(true);
-            playerOneFold.setDisable(true);
-            playerOnePress = true;
-            playerOnePressPlay = true;
-            bothPlayersReady();
-        });
 
         dealGame.setOnAction(event -> startDeal()); // Start the deal sequence
 
         playerOnePlay.setOnAction(event -> {
             playerOnePlay.setDisable(true);
             playerOneFold.setDisable(true);
-            playerOnePress = true;
-            playerTwoPressPlay = true;
+            playerOnePressPlay = true;
             bothPlayersReady();
         });
 
@@ -477,8 +495,10 @@ private void showOptionsMenu() {
     private void bothPlayersReady() {
 
         if (playerOnePress && (!isPlayerTwo || playerTwoPress)) { //makes it so it works for both single and 2 player mode
+            System.out.println("DID WE GET HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
             if (playerOnePressPlay) {
-                playerOnePlay.setText(playerOne.getAnteBet() + "");
+                System.out.println("Should also be here");
+                playPlayerOne.setText(playerOne.getAnteBet() + "");
                 playerOne.setPlayBet(playerOne.getAnteBet());
             }
             else if (playerOnePressFold) {
@@ -489,7 +509,8 @@ private void showOptionsMenu() {
 
             if (isPlayerTwo) {
                 if (playerTwoPressPlay) {
-                    playerTwoPlay.setText(playerTwo.getAnteBet() + "");
+                    System.out.println("and here also be here");
+                    playPlayerTwo.setText(playerTwo.getAnteBet() + "");
                     playerTwo.setPlayBet(playerTwo.getAnteBet());
                 }
                 else if (playerTwoPressFold) {
@@ -499,13 +520,177 @@ private void showOptionsMenu() {
                 }
             }
 
+            System.out.println("and finally here");
             revealDealersCards();
         }
     }
 
     private void evaluateWinner() {
-        // Placeholder logic for evaluating winners, can expand based on your existing logic
-        // E.g., comparing hands, updating `gameCommentary`, etc.
+
+        int dealHandVal = ThreeCardLogic.evalHand(dealerHand);
+        if (dealHandVal == 0) {
+            int highestCard = ThreeCardLogic.getHighest(dealerHand);
+
+
+            if (highestCard < 12) {
+                gameCommentary.setText("Dealer does not have at least Queen high; ante wager is pushed");
+                antePlayerOne.setEditable(false);
+
+                if (isPlayerTwo){
+                    antePlayerTwo.setEditable(false);
+                }
+                return;
+            }
+        }
+
+        int winnerP1 = ThreeCardLogic.compareHands(dealerHand, playerOneHand);
+        int winningsP1 = playerOne.getTotalWinnings();
+        int winningsP2 = playerTwo.getTotalWinnings();
+
+
+        if (playerOnePressPlay && playerTwoPressPlay){
+            int winnerP2 = ThreeCardLogic.compareHands(dealerHand, playerTwoHand);
+
+            if (winnerP1 == 2 && winnerP2 == 2){
+                winningsP1 = winningsP1 + (playerOne.getAnteBet() * 4);
+                winningsP2 = winningsP2 + (playerTwo.getAnteBet() * 4);
+
+                gameCommentary.setText("Both players won against the dealer! :D");
+            }
+            else if (winnerP1 == 1 && winnerP2 == 2){
+                gameCommentary.setText("Player 1 lost against dealer. Congrats to Player 2!");
+                winningsP1 = winningsP1 - (playerOne.getAnteBet() * playerOne.getPlayBet());
+                winningsP2 = winningsP2 + (playerTwo.getAnteBet() * 4);
+            }
+            else if (winnerP1 == 2 && winnerP2 == 1){
+                gameCommentary.setText("Player 2 lost against dealer. Congrats to Player 1");
+                winningsP1 = winningsP1 + (playerOne.getAnteBet() * 4);
+                winningsP2 = winningsP2 - (playerTwo.getAnteBet() + playerTwo.getPlayBet());
+            }
+            else if (winnerP1 == 1 && winnerP2 == 1){
+                gameCommentary.setText("Both player lost against the dealer! >:)");
+                winningsP1 = winningsP1 - (playerOne.getAnteBet() + playerOne.getAnteBet());
+                winningsP2 = winningsP2 - (playerTwo.getAnteBet() + playerTwo.getAnteBet());
+            }
+            else{
+                gameCommentary.setText("This game is a tie! :O");
+            }
+        }
+        else if ((playerOnePressPlay || playerTwoPressPlay) && (playerOnePressFold || playerTwoPressFold)){
+            int p2Hand = ThreeCardLogic.evalHand(playerTwoHand);
+            int winnerP2 = ThreeCardLogic.compareHands(dealerHand, playerTwoHand);
+
+
+            if (winnerP1 == 2 || winnerP2 == 2){
+                if (winnerP1 == 2){
+                    winningsP1 = winningsP1 + (playerOne.getAnteBet() * 4);
+                }
+                else if (winnerP2 == 2){
+                    winningsP2 = winningsP2 + (playerTwo.getAnteBet() * 4);
+                }
+                gameCommentary.setText("Player won against dealer! :D");
+            }
+            else if (winnerP1 == 1 || winnerP2 == 1){
+                if (winnerP1 == 1){
+                    winningsP1 = winningsP1 - (playerOne.getAnteBet() + playerOne.getPlayBet());
+                }
+                else if (winnerP2 == 1){
+                    winningsP2 = winningsP2 - (playerTwo.getAnteBet() + playerTwo.getPlayBet());
+                }
+                gameCommentary.setText("Dealer won against player! >:)");
+            }
+            else {
+                gameCommentary.setText("This game is a tie! :O");
+            }
+        }
+        else if (playerOnePressPlay && !isPlayerTwo){
+            if (winnerP1 == 2){
+                winningsP1 = winningsP1 + (playerOne.getAnteBet() * 4);
+                gameCommentary.setText("Player won against dealer!");
+            }
+            else if (winnerP1 == 1){
+                winningsP1 = winningsP1 - (playerOne.getAnteBet() + playerOne.getPlayBet());
+                gameCommentary.setText("Player lost against dealer");
+            }
+            else{
+                gameCommentary.setText("This is a draw!");
+            }
+        }
+
+        int playerOnePairPlusMade = ifPairPlusBetMadePlayerOne();
+        int playerTwoPairPlusMade = ifPairPlusBetMadePlayerTwo();
+
+        if (playerOnePairPlusMade!= -2){
+            if (playerOnePairPlusMade != -1){
+                winningsP1 = winningsP1 + playerOnePairPlusMade;
+                gameCommentary.appendText(" Player One won pair plus wager :D +" + playerOnePairPlusMade);
+            }
+            else{
+                winningsP1 = winningsP1 - playerOne.getPairPlusBet();
+                gameCommentary.appendText(" Player One lost pair plus wager :( -" + playerOne.getPairPlusBet());
+            }
+        }
+
+        if (playerTwoPairPlusMade != -2){
+            if (playerTwoPairPlusMade != -1){
+                winningsP2 = winningsP2 + playerTwoPairPlusMade;
+                gameCommentary.appendText(" Player Two won pair plus wager +" + playerTwoPairPlusMade);
+            }
+            else {
+                winningsP2 = winningsP2 - playerTwo.getPairPlusBet();
+                gameCommentary.appendText(" Player Two lost pair plus wager :( -" + playerTwo.getPairPlusBet());
+            }
+        }
+
+        playerOne.setTotalWinnings(winningsP1);
+        amtWinningsPlayerOne.setText(playerOne.getTotalWinnings() + "");
+        antePlayerOne.setEditable(true);
+        antePlayerOne.setDisable(false);
+
+        if (isPlayerTwo){
+            antePlayerTwo.setEditable(true);
+            antePlayerTwo.setDisable(false);
+            playerTwo.setTotalWinnings(winningsP2);
+            amtWinningsPlayerTwo.setText(playerTwo.getTotalWinnings() + "");
+        }
+    }
+
+    public int checkPairPlus(){
+        String pairPlus = pairPlusPlayerOne.getText();
+        int pairPlusNum = Integer.parseInt(pairPlus);
+
+        return checkBetValid(pairPlusNum);
+    }
+
+    //helper function to determine winnings for pair plus bet for playerOne
+    public int ifPairPlusBetMadePlayerOne(){
+        int playerPP = ThreeCardLogic.evalHand(playerOneHand);
+
+        if (pairPlusPlayerOne.getText().isEmpty()){
+            return -2;
+        }
+
+        if (playerPP > 0){
+            return ThreeCardLogic.evalPPWinnings(playerOneHand, playerOne.getPairPlusBet());
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public int ifPairPlusBetMadePlayerTwo(){
+        int playerPP = ThreeCardLogic.evalHand(playerTwoHand);
+
+        if (pairPlusPlayerTwo.getText().isEmpty()){
+            return -2;
+        }
+
+        if (playerPP > 0){
+            return ThreeCardLogic.evalPPWinnings(playerTwoHand, playerTwo.getPairPlusBet());
+        }
+        else {
+            return -1;
+        }
     }
 
     public void setIsPlayerTwo(boolean isPlayerTwo) {
