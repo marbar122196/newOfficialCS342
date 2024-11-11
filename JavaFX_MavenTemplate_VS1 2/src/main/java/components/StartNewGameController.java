@@ -61,6 +61,7 @@ public class StartNewGameController {
     @FXML private ImageView p1c1Image3;
     @FXML private Button playerOnePlay;
     @FXML private Button playerOneFold;
+    @FXML private Label handNamePlayerOne;
 
 
     // Player 2 Controls
@@ -74,6 +75,7 @@ public class StartNewGameController {
     @FXML private ImageView p2c3Image3;
     @FXML private Button playerTwoPlay;
     @FXML private Button playerTwoFold;
+    @FXML private Label handNamePlayerTwo;
 
     // Dealer Controls
     @FXML private ImageView dc1Image1;
@@ -193,6 +195,11 @@ public class StartNewGameController {
         diffHands.add("Straight");
         diffHands.add("Flush");
         diffHands.add("Pair");
+    }
+
+    public String getHandLabel(int Hand){
+
+        return diffHands.get(Hand);
     }
 
     private void resetImagesFaceDown() {
@@ -330,21 +337,105 @@ public class StartNewGameController {
 
 
     private void startDeal() {
-        resetImagesFaceDown();
-        dealerHand = dealer.getHand();
-        dealer.dealPlayer(playerOne);
-        playerOneHand = playerOne.getHand();
 
-        if (isPlayerTwo) {
-            dealer.dealPlayer(playerTwo);
-            playerTwoHand = playerTwo.getHand();
+        namePlayerOne.setDisable(true);
+        antePlayerOne.setDisable(true);
+        namePlayerTwo.setDisable(true);
+        antePlayerTwo.setDisable(true);
+
+        if (!isPlayerTwo){
+            playerTwoPlay.setDisable(true);
+            playerTwoFold.setDisable(true);
         }
 
+        playerOnePress = false;
+        playerOnePressPlay = false;
+        playerOnePressFold = false;
+        playerTwoPress = false;
+        playerTwoPressPlay = false;
+        playerTwoPressFold = false;
+
+
+        //these things needs to happen every round regardless of # of players
+        resetImagesFaceDown(); //resets all cards to be face down
+        dealerHand = dealer.getHand(); //gets dealers hand
+        gameCommentary.clear(); //clears text box
+
+
+        //set up for Player ONE SOLELY
+        dealer.dealPlayer(playerOne); //deals to the player
+        playerOneHand = playerOne.getHand(); //gets the hand of player
+
+
+        //Converts PlayerOnes hands to strings to grab images
+        String playerOneCardOne = "/" + playerOneHand.get(0).getSuit() + " " + playerOneHand.get(0).getValue() + ".png";
+        String playerOneCardTwo = "/" + playerOneHand.get(1).getSuit() + " " + playerOneHand.get(1).getValue() + ".png";
+        String playerOneCardThree = "/" + playerOneHand.get(2).getSuit() + " " + playerOneHand.get(2).getValue() + ".png";
+
+
+        //Revealed Cards for Player One
+        Image playerOneRevealedOne = new Image(getClass().getResourceAsStream(playerOneCardOne));
+        Image playerOneRevealedTwo = new Image(getClass().getResourceAsStream(playerOneCardTwo));
+        Image playerOneRevealedThree = new Image(getClass().getResourceAsStream(playerOneCardThree));
+
+        //set up for player Two if there is one
+        dealer.dealPlayer(playerTwo); //deals to player
+        playerTwoHand = playerTwo.getHand(); //gets hand of player
+
+
+        //Now doing the same thing but for PlayerTwo
+        String playerTwoCardOne = "/" + playerTwoHand.get(0).getSuit() + " " + playerTwoHand.get(0).getValue() + ".png";
+        String playerTwoCardTwo = "/" + playerTwoHand.get(1).getSuit() + " " + playerTwoHand.get(1).getValue() + ".png";
+        String playerTwoCardThree = "/" +playerTwoHand.get(2).getSuit() + " " + playerTwoHand.get(2).getValue() + ".png";
+
+
+        //Revealed Cards for Player Two
+        Image playerTwoRevealedOne = new Image(getClass().getResourceAsStream(playerTwoCardOne));
+        Image playerTwoRevealedTwo = new Image(getClass().getResourceAsStream(playerTwoCardTwo));
+        Image playerTwoRevealedThree = new Image(getClass().getResourceAsStream(playerTwoCardThree));
+
+
+        //reveals cards sequentially
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1), e -> revealPlayerCards(playerOneHand, p1c1Image1, p1c1Image2, p1c1Image3)),
-                new KeyFrame(Duration.seconds(2), e -> revealPlayerCards(playerTwoHand, p2c1Image1, p2c2Image2, p2c3Image3)),
-                new KeyFrame(Duration.seconds(3), e -> revealDealersCards())
+                new KeyFrame(Duration.seconds(1), event ->{
+                    p1c1Image1.setImage(playerOneRevealedOne);
+                    if (isPlayerTwo) {
+                        p2c1Image1.setImage(playerTwoRevealedOne);
+                    }
+                }),
+                new KeyFrame(Duration.seconds(2), event ->{
+                    p1c1Image2.setImage(playerOneRevealedTwo);
+                    if (isPlayerTwo) {
+                        p2c2Image2.setImage(playerTwoRevealedTwo);
+                    }
+                }),
+                new KeyFrame(Duration.seconds(3), event ->{
+                    p1c1Image3.setImage(playerOneRevealedThree);
+                    if (isPlayerTwo) {
+                        p2c3Image3.setImage(playerTwoRevealedThree);
+                    }
+                }),
+                new KeyFrame(Duration.seconds(3.5), event ->{
+                    String handLabelP1 = getHandLabel(ThreeCardLogic.evalHand(playerOneHand));
+                    handNamePlayerOne.setText(handLabelP1);
+
+                    if (isPlayerTwo) {
+                        String handLabelP2 = getHandLabel(ThreeCardLogic.evalHand(playerTwoHand));
+                        handNamePlayerTwo.setText(handLabelP2);
+                    }
+
+                    playerOnePlay.setDisable(false);
+                    playerOneFold.setDisable(false);
+                    if (isPlayerTwo){
+                        playerTwoPlay.setDisable(false);
+                        playerTwoFold.setDisable(false);
+                    }
+
+                    setupListeners();
+                    dealGame.setDisable(true);
+                })
         );
+
 
         timeline.play();
     }
