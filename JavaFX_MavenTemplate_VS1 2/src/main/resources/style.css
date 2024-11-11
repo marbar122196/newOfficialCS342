@@ -174,4 +174,30 @@
     -fx-border-color: transparent; /* Remove border if desired */
     -fx-font-size: 15px; /* Adjust font size as needed */
 }
+/* Styling for the game commentary text area */
+.game-commentary {
+    -fx-background-color: #FF9A56;      /* Orange background for the TextArea */
+    -fx-control-inner-background: #FFFF;  /* Inner background for TextArea */
+    -fx-text-fill: #D52D00;             /* Text color */
+    -fx-font-size: 18px;
+    -fx-font-family: 'DotGothic16';
+    -fx-padding: 10px;
+    -fx-border-color: transparent;      /* Remove border */
+}
+.orange-inner-border {
+    -fx-background-color: #FF9A56;      /* Original orange color */
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
 
+.orange-button-smallest-other {
+    -fx-background-color: #FFFFFF;      /* Background color */
+    -fx-text-fill: #D52D00;             /* Text color */
+    -fx-font-size: 16px;                /* Font size */
+    -fx-font-family: 'DotGothic16';     /* Font family */
+    -fx-min-width: 100px;               /* Set minimum width */
+    -fx-pref-width: 110px;              /* Set preferred width */
+    -fx-pref-height: 30px;              /* Set preferred height */
+    -fx-alignment: center;              /* Center text within the button */
+    -fx-padding: 5px;                   /* Adjust padding if needed */
+}

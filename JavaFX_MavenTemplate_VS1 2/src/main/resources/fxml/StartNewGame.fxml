@@ -15,8 +15,9 @@
     <!-- Options Box at the Top -->
     <top>
         <VBox alignment="TOP_RIGHT" spacing="10" style="-fx-padding: 10;">
-            <Button fx:id="optionsButton" text="Options" onAction="#showOptionsMenu" />
-            <Button fx:id="rulesButton" text="Rules" onAction="#showRulesScreen" />
+            <Button fx:id="optionsButton" text="Options" onAction="#showOptionsMenu" styleClass="orange-button-smallest-other" prefWidth="130"/>
+            <Button fx:id="rulesButton" text="Rules" onAction="#showRulesScreen" styleClass="orange-button-smallest-other" prefWidth="130"/>
+
         </VBox>
     </top>
 
@@ -24,7 +25,7 @@
     <center>
         <Pane fx:id="pane">
             <!-- Player 1 Bets VBox -->
-            <VBox layoutX="100" layoutY="220" spacing="10" style="-fx-border-color: red; -fx-border-width: 1px;">
+            <VBox layoutX="100" layoutY="220" spacing="10">
                 <Label text="Play:" styleClass="orange-body-text"/>
                 <TextField fx:id="playPlayerOne" editable="false" />
                 <Label text="Ante:" styleClass="orange-body-text"/>
@@ -36,7 +37,7 @@
             </VBox>
 
             <!-- Player 1 Controls -->
-            <VBox layoutX="360" layoutY="270" spacing="10" alignment="CENTER" style="-fx-border-color: red; -fx-border-width: 1px;">
+            <VBox layoutX="360" layoutY="270" spacing="10" alignment="CENTER">
                 <TextField fx:id="namePlayerOne" promptText="Enter name here" alignment="CENTER" styleClass="transparent-text-field"/>
                 <Label fx:id="handNamePlayerOne" text="YOUR HAND" styleClass="orange-body-text-smaller"/>
                 <HBox spacing="5">
@@ -44,7 +45,7 @@
                     <ImageView fx:id="p1c1Image2" fitWidth="75" fitHeight="100"/>
                     <ImageView fx:id="p1c1Image3" fitWidth="75" fitHeight="100"/>
                 </HBox>
-                <HBox spacing="20" style="-fx-border-color: red; -fx-border-width: 1px;">
+                <HBox spacing="20">
                     <Region minWidth="12"/>
                     <Button fx:id="playerOnePlay" text="Play" styleClass="orange-button-smallest" disable="true"/>
                     <Button fx:id="playerOneFold" text="Fold" styleClass="orange-button-smallest" disable="true"/>
@@ -52,7 +53,7 @@
             </VBox>
 
             <!-- Player 2 Bets VBox -->
-            <VBox layoutX="1250" layoutY="220" spacing="10" style="-fx-border-color: red; -fx-border-width: 1px;">
+            <VBox layoutX="1250" layoutY="220" spacing="10">
                 <Label text="Play:" styleClass="orange-body-text"/>
                 <TextField fx:id="playPlayerTwo" editable="false" />
                 <Label text="Ante:" styleClass="orange-body-text"/>
@@ -64,7 +65,7 @@
             </VBox>
 
             <!-- Player 2 Controls -->
-            <VBox layoutX="900" layoutY="270" spacing="10" alignment="CENTER" style="-fx-border-color: red; -fx-border-width: 1px;">
+            <VBox layoutX="900" layoutY="270" spacing="10" alignment="CENTER">
                 <TextField fx:id="namePlayerTwo" promptText="Enter name here" alignment="CENTER" styleClass="transparent-text-field" editable="false"/>
                 <Label fx:id="handNamePlayerTwo" text="YOUR HAND" styleClass="orange-body-text-smaller"/>
                 <HBox spacing="5">
@@ -72,7 +73,7 @@
                     <ImageView fx:id="p2c2Image2" fitWidth="75" fitHeight="100"/>
                     <ImageView fx:id="p2c3Image3" fitWidth="75" fitHeight="100"/>
                 </HBox>
-                <HBox spacing="20" style="-fx-border-color: red; -fx-border-width: 1px;">
+                <HBox spacing="20">
                     <Region minWidth="15"/>
                     <Button fx:id="playerTwoPlay" text="Play" styleClass="orange-button-smallest" disable="true"/>
                     <Button fx:id="playerTwoFold" text="Fold" styleClass="orange-button-smallest" disable="true"/>
@@ -80,7 +81,7 @@
             </VBox>
 
             <!-- Dealer Controls -->
-            <VBox layoutX="625" layoutY="60" spacing="10" alignment="CENTER" style="-fx-border-color: red; -fx-border-width: 1px;">
+            <VBox layoutX="625" layoutY="60" spacing="10" alignment="CENTER">
                 <HBox spacing="5">
                     <ImageView fx:id="dc1Image1" fitWidth="75" fitHeight="100"/>
                     <ImageView fx:id="dc2Image2" fitWidth="75" fitHeight="100"/>
@@ -94,9 +95,9 @@
             <BorderPane layoutX="410" layoutY="530" prefWidth="700" prefHeight="150" styleClass="orange-outer-pane-border">
                 <center>
                     <!-- Inner BorderPane for the Orange Background -->
-                    <BorderPane style="-fx-background-color: #FF9A56; -fx-padding: 10;">
+                    <BorderPane styleClass="orange-inner-border">
                         <center>
-                            <TextArea fx:id="gameCommentary" prefWidth="680" prefHeight="130" editable="false" wrapText="true" styleClass="orange-body-text-smaller" style="-fx-background-color: #FF9A56; -fx-border-color: transparent;"/>
+                            <TextArea fx:id="gameCommentary" prefWidth="680" prefHeight="130" editable="false" wrapText="true" styleClass="game-commentary"/>
                         </center>
                     </BorderPane>
                 </center>

@@ -28,6 +28,9 @@ public class StartNewGameController {
 
     private Stage primaryStage;  // Primary stage for the main game
 
+    private OptionsMenuController optionsMenuController; // Store reference to OptionsMenuController
+
+
 
     private boolean isPlayerTwo = false;
     private ArrayList<Card> dealerHand;
@@ -126,27 +129,47 @@ public class StartNewGameController {
 
     }
 
+@FXML
+private void showOptionsMenu() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/OptionsMenu.fxml"));
+        Parent root = loader.load();
+
+        OptionsMenuController controller = loader.getController();
+        controller.initializeData(playerOne, playerTwo, dealer, primaryStage);
+
+        // Set the stage reference in the OptionsMenuController
+        Stage optionsStage = new Stage();
+        controller.setStage(optionsStage);
+
+        Scene optionsScene = new Scene(root);
+        optionsStage.initModality(Modality.APPLICATION_MODAL);
+        optionsStage.setTitle("Options");
+        optionsStage.setScene(optionsScene);
+        optionsStage.initOwner(primaryStage);
+        optionsScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        optionsStage.showAndWait();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+
     @FXML
-    private void showOptionsMenu() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/OptionsMenu.fxml"));
-            Parent root = loader.load();
+    private void handleNewLook() {
+        String newStyle = primaryStage.getScene().getStylesheets().contains(getClass().getResource("/invert.css").toExternalForm())
+                ? "/style.css" : "/invert.css";
 
-            OptionsMenuController controller = loader.getController();
-            controller.initializeData(playerOne, playerTwo, dealer, primaryStage);
+        primaryStage.getScene().getStylesheets().clear();
+        primaryStage.getScene().getStylesheets().add(getClass().getResource(newStyle).toExternalForm());
 
-            Scene optionsScene = new Scene(root);
-            Stage optionsStage = new Stage();
-            optionsStage.initModality(Modality.APPLICATION_MODAL);
-            optionsStage.setTitle("Options");
-            optionsStage.setScene(optionsScene);
-            optionsStage.initOwner(primaryStage);
-            optionsScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
-            optionsStage.showAndWait();
-        } catch (Exception e) {
-            e.printStackTrace();
+        // Apply the new stylesheet to the OptionsMenu if it’s open
+        if (optionsMenuController != null && optionsMenuController.getStage().isShowing()) {
+            optionsMenuController.getStage().getScene().getStylesheets().clear();
+            optionsMenuController.getStage().getScene().getStylesheets().add(getClass().getResource(newStyle).toExternalForm());
         }
     }
+
 
 
     @FXML

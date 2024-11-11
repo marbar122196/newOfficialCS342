@@ -26,6 +26,15 @@
     -fx-pref-height: 30px;
     -fx-alignment: center;
 }
+.game-commentary {
+    -fx-background-color: #bde3a3;             /* Light green, inverted from orange */
+    -fx-control-inner-background: #FFFF;     /* Inner background for TextArea */
+    -fx-text-fill: #3b5e42;                    /* Dark green text */
+    -fx-font-size: 18px;
+    -fx-font-family: 'DotGothic16';
+    -fx-padding: 10px;
+    -fx-border-color: transparent;             /* Remove border */
+}
 
 .purple-label-title {
     -fx-text-fill: #96a8b4;
@@ -149,4 +158,20 @@
     -fx-font-family: 'DotGothic16';
     -fx-border-color: transparent;
     -fx-font-size: 15px;
+}
+.orange-inner-border {
+    -fx-background-color: #bde3a3;      /* Inverted light green color */
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+.orange-button-smallest-other {
+    -fx-background-color: #FFFF;    /* Inverted background color */
+    -fx-text-fill: #3b5e42;           /* Dark green text color */
+    -fx-font-size: 16px;              /* Font size */
+    -fx-font-family: 'DotGothic16';   /* Custom font */
+    -fx-min-width: 75px;              /* Minimum width */
+    -fx-pref-width: 110px;            /* Preferred width for buttons */
+    -fx-pref-height: 30px;            /* Adjusted height */
+    -fx-alignment: center;            /* Center text within the button */
+    -fx-background-radius: 5px;       /* Optional rounded corners */
 }

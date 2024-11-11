@@ -18,6 +18,9 @@ public class OptionsMenuController {
     private Player playerTwo;
     private Dealer theDealer;
     private Stage primaryStage;
+    private boolean isInverted = false; // Track whether the inverted stylesheet is applied
+    private Stage optionsStage;
+
 
     @FXML private BorderPane optionsRoot;
     @FXML private Label optionsLabel;
@@ -59,10 +62,18 @@ public class OptionsMenuController {
     }
 
 
-    // Event handler for new look button
     @FXML
-    private void handleNewLook() {
-        NewLook.apply(primaryStage.getScene());
+    public void handleNewLook() {
+        String newStyle = isInverted ? "/style.css" : "/invert.css";
+        primaryStage.getScene().getStylesheets().clear();
+        primaryStage.getScene().getStylesheets().add(getClass().getResource(newStyle).toExternalForm());
+
+        // Apply the same stylesheet to the options menu scene if it’s open
+        optionsRoot.getScene().getStylesheets().clear();
+        optionsRoot.getScene().getStylesheets().add(getClass().getResource(newStyle).toExternalForm());
+
+        // Toggle the inverted state
+        isInverted = !isInverted;
     }
 
     // Event handler for winning hands button
@@ -114,6 +125,11 @@ public class OptionsMenuController {
             e.printStackTrace();
         }
     }
-
+    public Stage getStage() {
+        return optionsStage;
+    }
+    public void setStage(Stage stage) {
+        this.optionsStage = stage;
+    }
 
 }
