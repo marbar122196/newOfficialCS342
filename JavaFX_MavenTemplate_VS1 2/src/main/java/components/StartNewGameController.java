@@ -250,14 +250,6 @@ public class StartNewGameController {
 
         dealGame.setOnAction(event -> startDeal()); // Start the deal sequence
 
-        namePlayerOne.setOnAction(event -> {
-            playerOnePlay.setDisable(true);
-            playerOneFold.setDisable(true);
-            playerOnePress = true;
-            playerOnePressPlay = true;
-            bothPlayersReady();
-        });
-
         playerOnePlay.setOnAction(event -> {
             playerOnePlay.setDisable(true);
             playerOneFold.setDisable(true);
@@ -271,14 +263,6 @@ public class StartNewGameController {
             playerOneFold.setDisable(true);
             playerOnePress = true;
             playerOnePressFold = true;
-            bothPlayersReady();
-        });
-
-        namePlayerTwo.setOnAction(event -> {
-            playerTwoPlay.setDisable(true);
-            playerOneFold.setDisable(true);
-            playerOnePress = true;
-            playerOnePressPlay = true;
             bothPlayersReady();
         });
 
