@@ -14,11 +14,35 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import java.util.ArrayList;
+import javafx.scene.image.Image;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+
+
 public class StartNewGameController {
     private Dealer dealer;
     private Player playerOne;
     private Player playerTwo;
+
     private Stage primaryStage;  // Primary stage for the main game
+
+
+    private boolean isPlayerTwo = false;
+    private ArrayList<Card> dealerHand;
+    private ArrayList<Card> playerOneHand;
+    private ArrayList<Card> playerTwoHand;
+    private ArrayList<String> diffHands = new ArrayList<>();
+
+    private boolean playerOnePress = false;
+    private boolean playerTwoPress = false;
+
+    private boolean playerOnePressPlay = false;
+    private boolean playerTwoPressPlay = false;
+
+    private boolean playerOnePressFold = false;
+    private boolean playerTwoPressFold = false;
 
     @FXML private BorderPane rootPane;
 
@@ -37,6 +61,7 @@ public class StartNewGameController {
     @FXML private ImageView p1c1Image3;
     @FXML private Button playerOnePlay;
     @FXML private Button playerOneFold;
+
 
     // Player 2 Controls
     @FXML private TextField playPlayerTwo;
@@ -97,4 +122,316 @@ public class StartNewGameController {
             e.printStackTrace();
         }
     }
+
+//
+//    private void showRulesScreen() {
+//        RulesScreen rulesScreen = new RulesScreen();
+//        rulesScreen.show(primaryStage);
+//    }
+
+    public void initializeGame(Player playerOne, Player playerTwo, Dealer dealer) {
+        this.playerOne = playerOne;
+        this.playerTwo = playerTwo;
+        this.dealer = dealer;
+
+        populateDiffHands();
+        resetImagesFaceDown();
+        setupListeners();
+    }
+
+    private void populateDiffHands() {
+        diffHands.clear();
+        diffHands.add("High-Card");
+        diffHands.add("Straight Flush");
+        diffHands.add("Three of a Kind");
+        diffHands.add("Straight");
+        diffHands.add("Flush");
+        diffHands.add("Pair");
+    }
+
+    private void resetImagesFaceDown() {
+        setCardImage(p1c1Image1, "/facedown.png");
+        setCardImage(p1c1Image2, "/facedown.png");
+        setCardImage(p1c1Image3, "/facedown.png");
+        setCardImage(p2c1Image1, "/facedown.png");
+        setCardImage(p2c2Image2, "/facedown.png");
+        setCardImage(p2c3Image3, "/facedown.png");
+        setCardImage(dc1Image1, "/facedown.png");
+        setCardImage(dc2Image2, "/facedown.png");
+        setCardImage(dc3Image3, "/facedown.png");
+    }
+
+    private void setCardImage(ImageView imageView, String cardPic) {
+        Image image = new Image(getClass().getResourceAsStream(cardPic));
+        imageView.setImage(image);
+    }
+
+    private void setupListeners() {
+        // Add action listeners for buttons and text fields
+        namePlayerOne.setOnAction(event -> {
+            playerOnePlay.setDisable(true);
+            playerOneFold.setDisable(true);
+            playerOnePress = true;
+            playerOnePressPlay = true;
+            bothPlayersReady();
+        });
+
+        dealGame.setOnAction(event -> startDeal()); // Start the deal sequence
+
+        playerOnePlay.setOnAction(event -> {
+            playerOnePlay.setDisable(true);
+            playerOneFold.setDisable(true);
+            playerOnePress = true;
+            playerTwoPressPlay = true;
+            bothPlayersReady();
+        });
+
+        playerOneFold.setOnAction(event -> {
+            playerOnePlay.setDisable(true);
+            playerOneFold.setDisable(true);
+            playerOnePress = true;
+            playerOnePressFold = true;
+            bothPlayersReady();
+        });
+
+        playerTwoPlay.setOnAction(event -> {
+            playerTwoPlay.setDisable(true);
+            playerTwoFold.setDisable(true);
+            playerTwoPress = true;
+            playerTwoPressPlay = true;
+            bothPlayersReady();
+        });
+
+        playerTwoFold.setOnAction(event -> {
+            playerTwoPlay.setDisable(true);
+            playerTwoFold.setDisable(true);
+            playerTwoPress = true;
+            playerTwoPressFold = true;
+            bothPlayersReady();
+        });
+    }
+
+
+    private int checkBetValid() {
+        String nameP1 = namePlayerOne.getText();
+        String anteTextP1 = antePlayerOne.getText();
+
+        // Check if Player 1 has a name and valid ante
+        boolean hasName = !nameP1.isEmpty();
+        int anteP1 = 0;
+        boolean validP1Bet = false;
+
+        if (!anteTextP1.isEmpty()) {
+            anteP1 = Integer.parseInt(anteTextP1);
+            validP1Bet = anteP1 >= 5 && anteP1 <= 25;
+        }
+
+        if (!hasName || !validP1Bet) {
+            gameCommentary.setText("Player 1's information is incomplete or invalid. Please check the name and bet.");
+            dealGame.setDisable(true);
+            return 0;
+        }
+
+        // If there is a second player, check their name and ante as well
+        if (isPlayerTwo) {
+            String nameP2 = namePlayerTwo.getText();
+            String anteTextP2 = antePlayerTwo.getText();
+
+            boolean hasNameP2 = !nameP2.isEmpty();
+            int anteP2 = 0;
+            boolean validP2Bet = false;
+
+            if (!anteTextP2.isEmpty()) {
+                anteP2 = Integer.parseInt(anteTextP2);
+                validP2Bet = anteP2 >= 5 && anteP2 <= 25;
+            }
+
+            if (!hasNameP2 || !validP2Bet) {
+                gameCommentary.setText("Player 2's information is incomplete or invalid. Please check the name and bet.");
+                dealGame.setDisable(true);
+                return 0;
+            }
+
+            // If both players have valid names and bets, update player bets and enable deal button
+            playerOne.setAnteBet(anteP1);
+            playerTwo.setAnteBet(anteP2);
+            gameCommentary.setText("Bets look good! Let's start the game.");
+            dealGame.setDisable(false);
+            return 1;
+        }
+        else {
+            // Only Player 1 is playing, so enable the deal button
+            playerOne.setAnteBet(anteP1);
+            gameCommentary.setText("Looks great! Let's start the game.");
+            dealGame.setDisable(false);
+            return 1;
+        }
+    }
+
+    public int enableDeal() {
+        // Retrieve and validate Player 1's name and ante
+        String nameP1 = namePlayerOne.getText();
+        String anteTextP1 = antePlayerOne.getText();
+        boolean hasNameP1 = !nameP1.isEmpty();
+        int anteP1 = Integer.parseInt(anteTextP1);
+        int p1BetStatus = checkBetValid();
+
+        // If there are two players, retrieve and validate Player 2's name and ante
+        if (isPlayerTwo) {
+            String nameP2 = namePlayerTwo.getText();
+            String anteTextP2 = antePlayerTwo.getText();
+            boolean hasNameP2 = !nameP2.isEmpty();
+
+            // Check both players have entered their names
+            if (hasNameP1 && hasNameP2) {
+                int anteP2 = Integer.parseInt(anteTextP2);
+                int p2BetStatus = checkBetValid();
+
+                // Determine the status of both players' bets
+                if (p1BetStatus == -1 && p2BetStatus == 0) {
+                    gameCommentary.setText("Player 1's bet is invalid, please try again");
+                    return 0;
+                } else if (p2BetStatus == -1 && p1BetStatus == 0) {
+                    gameCommentary.setText("Player 2's bet is invalid, please try again");
+                    return 0;
+                } else if (p1BetStatus == -1 && p2BetStatus == -1) {
+                    gameCommentary.setText("Both bets are invalid, please try again.");
+                    return 0;
+                } else {
+                    // Both bets are valid
+                    gameCommentary.setText("Bets look good!");
+                    playerOne.setAnteBet(anteP1);
+                    playerTwo.setAnteBet(anteP2);
+                    dealGame.setDisable(false);
+                    return 1;
+                }
+            }
+        }
+
+        // If only Player 1 is playing or Player 2 is not yet enabled
+        if (p1BetStatus == -1) {
+            gameCommentary.setText("Bet is invalid, please try again.");
+            return 0;
+        } else {
+            gameCommentary.setText("Looks great, let's get started!");
+            playerOne.setAnteBet(anteP1);
+            dealGame.setDisable(false);
+            return 1;
+        }
+    }
+
+
+    private void startDeal() {
+        resetImagesFaceDown();
+        dealerHand = dealer.getHand();
+        dealer.dealPlayer(playerOne);
+        playerOneHand = playerOne.getHand();
+
+        if (isPlayerTwo) {
+            dealer.dealPlayer(playerTwo);
+            playerTwoHand = playerTwo.getHand();
+        }
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), e -> revealPlayerCards(playerOneHand, p1c1Image1, p1c1Image2, p1c1Image3)),
+                new KeyFrame(Duration.seconds(2), e -> revealPlayerCards(playerTwoHand, p2c1Image1, p2c2Image2, p2c3Image3)),
+                new KeyFrame(Duration.seconds(3), e -> revealDealersCards())
+        );
+
+        timeline.play();
+    }
+
+    private void revealPlayerCards(ArrayList<Card> hand, ImageView card1, ImageView card2, ImageView card3) {
+        setCardImage(card1, "/" + hand.get(0).getSuit() + " " + hand.get(0).getValue() + ".png");
+        setCardImage(card2, "/" + hand.get(1).getSuit() + " " + hand.get(1).getValue() + ".png");
+        setCardImage(card3, "/" + hand.get(2).getSuit() + " " + hand.get(2).getValue() + ".png");
+
+    }
+
+    private void revealDealersCards() {
+        revealPlayerCards(dealerHand, dc1Image1, dc2Image2, dc3Image3);
+    }
+
+    private void checkButtonPress(){
+        System.out.println("HELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOo + " + playerOnePlay.isDisabled());
+
+        System.out.println("HELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOo + " + playerTwoPlay.isDisabled());
+        playerOnePlay.setOnAction(e -> {
+            System.out.println("playerOnePlay PRESSEDDDDDDDDDDDDdd");
+
+            playerOnePlay.setDisable(true);
+            playerOneFold.setDisable(true);
+            playerOnePress = true;
+            playerOnePressPlay = true;
+            bothPlayersReady();
+        });
+
+
+        playerTwoPlay.setOnAction(e -> {
+            System.out.println("playerTwoPlay PRESSEDDDDDDDDDDDDdd");
+            playerTwoPlay.setDisable(true);
+            playerTwoFold.setDisable(true);
+            playerTwoPress = true;
+            playerTwoPressPlay = true;
+            bothPlayersReady();
+        });
+
+
+        playerOneFold.setOnAction(e -> {
+            playerOnePlay.setDisable(true);
+            playerOneFold.setDisable(true);
+            playerOnePress = true;
+            playerOnePressFold = true;
+            bothPlayersReady();
+        });
+
+
+        playerTwoFold.setOnAction(e -> {
+            playerTwoPlay.setDisable(true);
+            playerTwoFold.setDisable(true);
+            playerTwoPress = true;
+            playerTwoPressFold = true;
+            bothPlayersReady();
+        });
+    }
+
+    private void bothPlayersReady() {
+
+        if (playerOnePress && (!isPlayerTwo || playerTwoPress)) { //makes it so it works for both single and 2 player mode
+            if (playerOnePressPlay) {
+                playerOnePlay.setText(playerOne.getAnteBet() + "");
+                playerOne.setPlayBet(playerOne.getAnteBet());
+            }
+            else if (playerOnePressFold) {
+                int p1Winnings = playerOne.getTotalWinnings();
+                p1Winnings = p1Winnings - playerOne.getAnteBet();
+                playerOne.setTotalWinnings(p1Winnings);
+            }
+
+            if (isPlayerTwo) {
+                if (playerTwoPressPlay) {
+                    playerTwoPlay.setText(playerTwo.getAnteBet() + "");
+                    playerTwo.setPlayBet(playerTwo.getAnteBet());
+                }
+                else if (playerTwoPressFold) {
+                    int p2Winnings = playerTwo.getTotalWinnings();
+                    p2Winnings = p2Winnings - playerTwo.getAnteBet();
+                    playerTwo.setTotalWinnings(p2Winnings);
+                }
+            }
+
+            revealDealersCards();
+        }
+    }
+
+    private void evaluateWinner() {
+        // Placeholder logic for evaluating winners, can expand based on your existing logic
+        // E.g., comparing hands, updating `gameCommentary`, etc.
+    }
+
+    public void setIsPlayerTwo(boolean isPlayerTwo) {
+        this.isPlayerTwo = isPlayerTwo;
+        namePlayerTwo.setEditable(isPlayerTwo);
+    }
+
 }
