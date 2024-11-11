@@ -15,7 +15,7 @@
     <!-- Options Box at the Top -->
     <top>
         <VBox alignment="TOP_RIGHT" spacing="10" style="-fx-padding: 10;">
-            <Button fx:id="optionsButton" text="Options" styleClass="purple-button-smaller" />
+            <Button fx:id="optionsButton" text="Options" onAction="#showOptionsMenu" />
             <Button fx:id="rulesButton" text="Rules" onAction="#showRulesScreen" />
         </VBox>
     </top>

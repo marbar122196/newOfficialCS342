@@ -96,14 +96,37 @@ public class StartNewGameController {
         gameCommentary.setText("Hello! Please enter a name and ante wager to start. Min bet: $5, Max bet: $25.");
         initializeGame(playerOne, playerTwo, dealer);
 
-//        optionsButton.setOnAction(event -> showOptionsMenu());
+        optionsButton.setOnAction(event -> showOptionsMenu());
         rulesButton.setOnAction(event -> showRulesScreen());
     }
 
-//    private void showOptionsMenu() {
-//        OptionsMenu optionsMenu = new OptionsMenu(playerOne, playerTwo, dealer, primaryStage);
-//        optionsMenu.show(primaryStage);
-//    }
+    @FXML
+    private void showOptionsMenu() {
+        try {
+            // Load the FXML file for the OptionsMenu
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/OptionsMenu.fxml"));
+            Parent root = loader.load();
+
+            // Retrieve the controller to set any necessary data (e.g., players, dealer)
+            OptionsMenuController controller = loader.getController();
+//            controller.initializeData(playerOne, playerTwo, dealer);
+
+            // Create and configure the modal stage
+            Scene optionsScene = new Scene(root);
+            optionsScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+
+            Stage optionsStage = new Stage();
+            optionsStage.initModality(Modality.APPLICATION_MODAL);
+            optionsStage.setTitle("Options");
+            optionsStage.setScene(optionsScene);
+            optionsStage.initOwner(primaryStage); // Set the main window as the owner
+            optionsStage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private void showRulesScreen() {
         try {

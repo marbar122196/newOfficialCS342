@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="components.ExitScreenController" prefWidth="500" prefHeight="300"
+            styleClass="purple-outer-pane-border">
+
+    <center>
+        <VBox fx:id="exitScreenBox" alignment="CENTER" spacing="20" styleClass="purple-vbox">
+
+            <!-- Title Label -->
+            <Label fx:id="exitScreenTitle" text="return to game?" styleClass="purple-label-title"/>
+
+            <!-- Yes and No Buttons -->
+            <Button fx:id="yesButton" text="yes :3" styleClass="purple-button" onAction="#handleYes"/>
+            <Button fx:id="noButton" text="no :0" styleClass="purple-button" onAction="#handleNo"/>
+
+        </VBox>
+    </center>
+</BorderPane>
