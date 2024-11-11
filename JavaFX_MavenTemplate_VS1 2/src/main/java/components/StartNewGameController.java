@@ -84,17 +84,11 @@ public class StartNewGameController {
     // Commentary TextArea
     @FXML private TextArea gameCommentary;
 
-//    public StartNewGameController(Dealer dealer, Player playerOne, Player playerTwo, Stage primaryStage) {
-//        this.dealer = dealer;
-//        this.playerOne = playerOne;
-//        this.playerTwo = playerTwo;
-//        this.primaryStage = primaryStage;
-//    }
 
     public void initialize() {
         // Set up any default values, placeholders, or initial UI state here.
         gameCommentary.setText("Hello! Please enter a name and ante wager to start. Min bet: $5, Max bet: $25.");
-        initializeGame(playerOne, playerTwo, dealer);
+        initializeGame(playerOne, playerTwo, dealer,primaryStage);
 
         optionsButton.setOnAction(event -> showOptionsMenu());
         rulesButton.setOnAction(event -> showRulesScreen());
@@ -103,29 +97,25 @@ public class StartNewGameController {
     @FXML
     private void showOptionsMenu() {
         try {
-            // Load the FXML file for the OptionsMenu
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/OptionsMenu.fxml"));
             Parent root = loader.load();
 
-            // Retrieve the controller to set any necessary data (e.g., players, dealer)
             OptionsMenuController controller = loader.getController();
-//            controller.initializeData(playerOne, playerTwo, dealer);
+            controller.initializeData(playerOne, playerTwo, dealer, primaryStage);
 
-            // Create and configure the modal stage
             Scene optionsScene = new Scene(root);
-            optionsScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
-
             Stage optionsStage = new Stage();
             optionsStage.initModality(Modality.APPLICATION_MODAL);
             optionsStage.setTitle("Options");
             optionsStage.setScene(optionsScene);
-            optionsStage.initOwner(primaryStage); // Set the main window as the owner
+            optionsStage.initOwner(primaryStage);
+            optionsScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
             optionsStage.showAndWait();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     private void showRulesScreen() {
@@ -147,16 +137,14 @@ public class StartNewGameController {
         }
     }
 
-//
-//    private void showRulesScreen() {
-//        RulesScreen rulesScreen = new RulesScreen();
-//        rulesScreen.show(primaryStage);
-//    }
 
-    public void initializeGame(Player playerOne, Player playerTwo, Dealer dealer) {
+
+    public void initializeGame(Player playerOne, Player playerTwo, Dealer dealer,Stage primaryStage) {
+
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.dealer = dealer;
+        this.primaryStage = primaryStage;
 
         populateDiffHands();
         resetImagesFaceDown();

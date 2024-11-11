@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:id="outerPane" fx:controller="components.RulesScreenController" prefWidth="900" prefHeight="900" styleClass="purple-outer-pane-border">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:id="outerPane" fx:controller="components.RulesScreenController" prefWidth="940" prefHeight="940" styleClass="purple-outer-pane-border">
 
     <center>
         <VBox fx:id="rulesBox" alignment="CENTER" spacing="10" styleClass="purple-vbox">

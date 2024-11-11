@@ -11,7 +11,7 @@
 .purple-button {
     -fx-background-color: #B55690;    /* Purple background color */
     -fx-text-fill: white;             /* White text color */
-    -fx-font-size: 24px;              /* Font size */
+    -fx-font-size: 26px;              /* Font size */
     -fx-font-family: 'DotGothic16';   /* Set to custom font if applicable */
     -fx-min-width: 200px;             /* Set minimum width */
     -fx-pref-width: 200px;            /* Set preferred width */
@@ -23,7 +23,7 @@
 .purple-button-smaller {
     -fx-background-color: #B55690;    /* Purple background color */
     -fx-text-fill: white;             /* White text color */
-    -fx-font-size: 20px;              /* Font size */
+    -fx-font-size: 22px;              /* Font size */
     -fx-font-family: 'DotGothic16';   /* Set to custom font if applicable */
     -fx-min-width: 150px;             /* Set minimum width */
     -fx-pref-width: 150px;            /* Set preferred width */
@@ -37,7 +37,7 @@
 /* Styling for the main label text */
 .purple-label-title {
     -fx-text-fill: #B55690;
-    -fx-font-size: 30px;
+    -fx-font-size: 32px;
     -fx-font-family: 'DotGothic16';
     -fx-text-alignment: center;
 }
@@ -45,7 +45,7 @@
 
 .purple-body-text {
     -fx-text-fill: #B55690;
-    -fx-font-size: 26px;
+    -fx-font-size: 27px;
     -fx-font-family: 'DotGothic16';
     -fx-text-alignment: center;
 }
@@ -53,7 +53,7 @@
 
 .purple-body-text-smaller{
     -fx-text-fill: #B55690;
-    -fx-font-size: 22px;
+    -fx-font-size: 24px;
     -fx-font-family: 'DotGothic16';
     -fx-text-alignment: center;
 }
@@ -80,7 +80,7 @@
 .orange-button {
     -fx-background-color: #FF9A56;    /* Purple background color */
     -fx-text-fill: #D52D00;             /* White text color */
-    -fx-font-size: 24px;              /* Font size */
+    -fx-font-size: 26px;              /* Font size */
     -fx-font-family: 'DotGothic16';   /* Set to custom font if applicable */
     -fx-min-width: 200px;             /* Set minimum width */
     -fx-pref-width: 200px;            /* Set preferred width */
@@ -90,7 +90,7 @@
 .orange-button-deal {
     -fx-background-color: #FFFFFF;    /* White background color */
     -fx-text-fill: #D52D00;           /* Text color */
-    -fx-font-size: 24px;              /* Font size */
+    -fx-font-size: 26px;              /* Font size */
     -fx-font-family: 'DotGothic16';   /* Custom font */
     -fx-min-width: 200px;             /* Minimum width */
     -fx-pref-width: 200px;            /* Preferred width */
@@ -103,7 +103,7 @@
 .orange-button-smaller {
     -fx-background-color: #FF9A56;    /* Purple background color */
     -fx-text-fill: #D52D00;             /* White text color */
-    -fx-font-size: 20px;              /* Font size */
+    -fx-font-size: 22px;              /* Font size */
     -fx-font-family: 'DotGothic16';   /* Set to custom font if applicable */
     -fx-min-width: 150px;             /* Set minimum width */
     -fx-pref-width: 200px;            /* Set preferred width */
@@ -134,14 +134,14 @@
 
 .orange-body-text{
     -fx-text-fill: #D52D00;
-    -fx-font-size: 22px;
+    -fx-font-size: 24px;
     -fx-font-family: 'DotGothic16';
     -fx-text-alignment: center;
 }
 
 .orange-body-text-smaller{
     -fx-text-fill: #D52D00;
-    -fx-font-size: 17px;
+    -fx-font-size: 18px;
     -fx-font-family: 'DotGothic16';
     -fx-text-alignment: center;
 }
@@ -149,7 +149,7 @@
 .orange-button-smallest {
     -fx-background-color: #FFFFFF;    /* Purple background color */
     -fx-text-fill: #D52D00;             /* White text color */
-    -fx-font-size: 14px;              /* Font size */
+    -fx-font-size: 16px;              /* Font size */
     -fx-font-family: 'DotGothic16';   /* Set to custom font if applicable */
     -fx-min-width: 75px;             /* Set minimum width */
     -fx-pref-width: 75px;            /* Set preferred width */
@@ -172,6 +172,6 @@
     -fx-prompt-text-fill: #D52D00; /* Dark orange prompt text */
     -fx-font-family: 'DotGothic16';
     -fx-border-color: transparent; /* Remove border if desired */
-    -fx-font-size: 14px; /* Adjust font size as needed */
+    -fx-font-size: 15px; /* Adjust font size as needed */
 }
 

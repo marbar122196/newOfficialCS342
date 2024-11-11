@@ -43,10 +43,13 @@ public class OptionsMenuController {
 
             // Retrieve the controller and call initializeGame directly
             StartNewGameController controller = loader.getController();
-            controller.initializeGame(playerOne, playerTwo, theDealer);
+            controller.initializeGame(playerOne, playerTwo, theDealer,primaryStage);
 
             // Set up the scene and show it on the primaryStage
             Scene scene = new Scene(root);
+
+            scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+
             primaryStage.setScene(scene);
             primaryStage.show();
 
