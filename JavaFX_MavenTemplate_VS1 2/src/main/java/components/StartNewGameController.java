@@ -92,6 +92,36 @@ public class StartNewGameController {
 
         optionsButton.setOnAction(event -> showOptionsMenu());
         rulesButton.setOnAction(event -> showRulesScreen());
+
+        namePlayerOne.setOnAction(event -> {
+            String nameP1 = namePlayerOne.getText();
+            namePlayerOne.setEditable(false);
+            namePlayerOne.setText(nameP1);
+            namePlayerTwo.setEditable(true);
+            enableDeal();
+        });
+
+        antePlayerOne.setOnAction(event -> {
+            if (enableDeal() == 1){
+                setupListeners();;
+            }
+        });
+
+        // Set listener on namePlayerTwo to activate two-player mode if it has been filled
+        namePlayerTwo.setOnAction(event -> {
+            String nameP2 = namePlayerTwo.getText();
+            isPlayerTwo = true;
+            namePlayerTwo.setEditable(false);
+            namePlayerTwo.setText(nameP2);
+            enableDeal();
+        });
+
+        antePlayerTwo.setOnAction(event -> {
+            if (enableDeal() == 1){
+                setupListeners();;
+            }
+        });
+
     }
 
     @FXML
@@ -146,9 +176,13 @@ public class StartNewGameController {
         this.dealer = dealer;
         this.primaryStage = primaryStage;
 
+        namePlayerOne.setEditable(true);
+        antePlayerOne.setEditable(true);
+
         populateDiffHands();
         resetImagesFaceDown();
-        setupListeners();
+//        setupListeners();
+
     }
 
     private void populateDiffHands() {
@@ -179,6 +213,8 @@ public class StartNewGameController {
     }
 
     private void setupListeners() {
+
+//        dealGame.setOnAction(event -> startDeal());
         // Add action listeners for buttons and text fields
         namePlayerOne.setOnAction(event -> {
             playerOnePlay.setDisable(true);
@@ -224,69 +260,25 @@ public class StartNewGameController {
     }
 
 
-    private int checkBetValid() {
-        String nameP1 = namePlayerOne.getText();
-        String anteTextP1 = antePlayerOne.getText();
-
-        // Check if Player 1 has a name and valid ante
-        boolean hasName = !nameP1.isEmpty();
-        int anteP1 = 0;
-        boolean validP1Bet = false;
-
-        if (!anteTextP1.isEmpty()) {
-            anteP1 = Integer.parseInt(anteTextP1);
-            validP1Bet = anteP1 >= 5 && anteP1 <= 25;
+    public int checkBetValid(int bet){
+        if (bet < 5 || bet > 25){
+            return -1;
         }
-
-        if (!hasName || !validP1Bet) {
-            gameCommentary.setText("Player 1's information is incomplete or invalid. Please check the name and bet.");
-            dealGame.setDisable(true);
-            return 0;
-        }
-
-        // If there is a second player, check their name and ante as well
-        if (isPlayerTwo) {
-            String nameP2 = namePlayerTwo.getText();
-            String anteTextP2 = antePlayerTwo.getText();
-
-            boolean hasNameP2 = !nameP2.isEmpty();
-            int anteP2 = 0;
-            boolean validP2Bet = false;
-
-            if (!anteTextP2.isEmpty()) {
-                anteP2 = Integer.parseInt(anteTextP2);
-                validP2Bet = anteP2 >= 5 && anteP2 <= 25;
-            }
-
-            if (!hasNameP2 || !validP2Bet) {
-                gameCommentary.setText("Player 2's information is incomplete or invalid. Please check the name and bet.");
-                dealGame.setDisable(true);
-                return 0;
-            }
-
-            // If both players have valid names and bets, update player bets and enable deal button
-            playerOne.setAnteBet(anteP1);
-            playerTwo.setAnteBet(anteP2);
-            gameCommentary.setText("Bets look good! Let's start the game.");
-            dealGame.setDisable(false);
-            return 1;
-        }
-        else {
-            // Only Player 1 is playing, so enable the deal button
-            playerOne.setAnteBet(anteP1);
-            gameCommentary.setText("Looks great! Let's start the game.");
-            dealGame.setDisable(false);
-            return 1;
-        }
+        return 0;
     }
 
     public int enableDeal() {
         // Retrieve and validate Player 1's name and ante
+
+        System.out.println("SHOULD BE CALLLLEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd");
         String nameP1 = namePlayerOne.getText();
         String anteTextP1 = antePlayerOne.getText();
+
         boolean hasNameP1 = !nameP1.isEmpty();
         int anteP1 = Integer.parseInt(anteTextP1);
-        int p1BetStatus = checkBetValid();
+        int p1BetStatus = checkBetValid(anteP1);
+
+        System.out.println("BLAHBLAHBLAH");
 
         // If there are two players, retrieve and validate Player 2's name and ante
         if (isPlayerTwo) {
@@ -297,24 +289,28 @@ public class StartNewGameController {
             // Check both players have entered their names
             if (hasNameP1 && hasNameP2) {
                 int anteP2 = Integer.parseInt(anteTextP2);
-                int p2BetStatus = checkBetValid();
+                int p2BetStatus = checkBetValid(anteP2);
 
                 // Determine the status of both players' bets
                 if (p1BetStatus == -1 && p2BetStatus == 0) {
                     gameCommentary.setText("Player 1's bet is invalid, please try again");
                     return 0;
-                } else if (p2BetStatus == -1 && p1BetStatus == 0) {
+                }
+                else if (p2BetStatus == -1 && p1BetStatus == 0) {
                     gameCommentary.setText("Player 2's bet is invalid, please try again");
                     return 0;
-                } else if (p1BetStatus == -1 && p2BetStatus == -1) {
+                }
+                else if (p1BetStatus == -1 && p2BetStatus == -1) {
                     gameCommentary.setText("Both bets are invalid, please try again.");
                     return 0;
-                } else {
+                }
+                else {
                     // Both bets are valid
                     gameCommentary.setText("Bets look good!");
                     playerOne.setAnteBet(anteP1);
                     playerTwo.setAnteBet(anteP2);
                     dealGame.setDisable(false);
+                    System.out.println("helooasoansfoanoif");
                     return 1;
                 }
             }
@@ -362,49 +358,6 @@ public class StartNewGameController {
 
     private void revealDealersCards() {
         revealPlayerCards(dealerHand, dc1Image1, dc2Image2, dc3Image3);
-    }
-
-    private void checkButtonPress(){
-        System.out.println("HELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOo + " + playerOnePlay.isDisabled());
-
-        System.out.println("HELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOo + " + playerTwoPlay.isDisabled());
-        playerOnePlay.setOnAction(e -> {
-            System.out.println("playerOnePlay PRESSEDDDDDDDDDDDDdd");
-
-            playerOnePlay.setDisable(true);
-            playerOneFold.setDisable(true);
-            playerOnePress = true;
-            playerOnePressPlay = true;
-            bothPlayersReady();
-        });
-
-
-        playerTwoPlay.setOnAction(e -> {
-            System.out.println("playerTwoPlay PRESSEDDDDDDDDDDDDdd");
-            playerTwoPlay.setDisable(true);
-            playerTwoFold.setDisable(true);
-            playerTwoPress = true;
-            playerTwoPressPlay = true;
-            bothPlayersReady();
-        });
-
-
-        playerOneFold.setOnAction(e -> {
-            playerOnePlay.setDisable(true);
-            playerOneFold.setDisable(true);
-            playerOnePress = true;
-            playerOnePressFold = true;
-            bothPlayersReady();
-        });
-
-
-        playerTwoFold.setOnAction(e -> {
-            playerTwoPlay.setDisable(true);
-            playerTwoFold.setDisable(true);
-            playerTwoPress = true;
-            playerTwoPressFold = true;
-            bothPlayersReady();
-        });
     }
 
     private void bothPlayersReady() {
