@@ -5,13 +5,14 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="components.WelcomeScreenController" prefWidth="500" prefHeight="400">
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="components.WelcomeScreenController" prefWidth="500" prefHeight="400" styleClass="purple-outer-pane-border">
     <center>
-        <VBox fx:id="welcomeText" alignment="CENTER" spacing="20" BorderPane.alignment="CENTER" styleClass="purple-vbox">
+        <!-- Inner VBox for centering content with padding -->
+        <VBox alignment="CENTER" spacing="20" BorderPane.alignment="CENTER" styleClass="purple-vbox">
             <Label fx:id="intro" text="Welcome to 3 Card Poker" styleClass="purple-label-title"/>
             <Label fx:id="authors" text="By Coda and Martha" styleClass="purple-body-text"/>
-            <Button fx:id="startButton" text="Play &#9829;" styleClass="purple-button"/>
-            <Button fx:id="exitButton" text="Exit 😠" styleClass="purple-button"/>
+            <Button fx:id="startButton" text="Play &#9829;" styleClass="purple-button" onAction="#handleStartButton"/>
+            <Button fx:id="exitButton" text="Exit >:(" styleClass="purple-button" onAction="#handleExitButton"/>
         </VBox>
     </center>
 </BorderPane>
