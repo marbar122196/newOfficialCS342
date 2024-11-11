@@ -36,8 +36,8 @@
             </VBox>
 
             <!-- Player 1 Controls -->
-            <VBox layoutX="260" layoutY="440" spacing="10" alignment="CENTER" style="-fx-border-color: red; -fx-border-width: 1px;">
-                <TextField fx:id="namePlayerOne" promptText="Enter name here" styleClass="transparent-text-field"/>
+            <VBox layoutX="360" layoutY="270" spacing="10" alignment="CENTER" style="-fx-border-color: red; -fx-border-width: 1px;">
+                <TextField fx:id="namePlayerOne" promptText="Enter name here" alignment="CENTER" styleClass="transparent-text-field"/>
                 <Label text="YOUR HAND" styleClass="orange-body-text-smaller"/>
                 <HBox spacing="5">
                     <ImageView fx:id="p1c1Image1" fitWidth="75" fitHeight="100"/>
@@ -64,8 +64,8 @@
             </VBox>
 
             <!-- Player 2 Controls -->
-            <VBox layoutX="1000" layoutY="440" spacing="10" alignment="CENTER" style="-fx-border-color: red; -fx-border-width: 1px;">
-                <TextField fx:id="namePlayerTwo" promptText="Enter name here" styleClass="transparent-text-field" editable="false"/>
+            <VBox layoutX="900" layoutY="270" spacing="10" alignment="CENTER" style="-fx-border-color: red; -fx-border-width: 1px;">
+                <TextField fx:id="namePlayerTwo" promptText="Enter name here" alignment="CENTER" styleClass="transparent-text-field" editable="false"/>
                 <Label text="YOUR HAND" styleClass="orange-body-text-smaller"/>
                 <HBox spacing="5">
                     <ImageView fx:id="p2c1Image1" fitWidth="75" fitHeight="100"/>
