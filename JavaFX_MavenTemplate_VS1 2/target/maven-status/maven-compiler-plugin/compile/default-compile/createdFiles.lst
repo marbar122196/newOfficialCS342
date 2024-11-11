@@ -1,8 +1,0 @@
-gamelogic/ThreeCardLogic.class
-gamelogic/Player.class
-JavaFXTemplate.class
-gamelogic/Deck.class
-gamelogic/Dealer.class
-components/StartNewGameController.class
-gamelogic/Card.class
-components/WelcomeScreenController.class
