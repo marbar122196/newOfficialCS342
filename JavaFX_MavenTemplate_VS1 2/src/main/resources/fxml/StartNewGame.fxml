@@ -90,10 +90,15 @@
                 <Button fx:id="dealGame" text="Deal" styleClass="orange-button-deal" disable="true"/>
             </VBox>
 
-            <!-- Commentary Box -->
+            <!-- Commentary Box with Inner and Outer Borders -->
             <BorderPane layoutX="410" layoutY="530" prefWidth="700" prefHeight="150" styleClass="orange-outer-pane-border">
                 <center>
-                    <TextArea fx:id="gameCommentary" prefWidth="680" prefHeight="130" editable="false" wrapText="true" styleClass="orange-body-text-smaller"/>
+                    <!-- Inner BorderPane for the Orange Background -->
+                    <BorderPane style="-fx-background-color: #FF9A56; -fx-padding: 10;">
+                        <center>
+                            <TextArea fx:id="gameCommentary" prefWidth="680" prefHeight="130" editable="false" wrapText="true" styleClass="orange-body-text-smaller" style="-fx-background-color: #FF9A56; -fx-border-color: transparent;"/>
+                        </center>
+                    </BorderPane>
                 </center>
             </BorderPane>
         </Pane>
