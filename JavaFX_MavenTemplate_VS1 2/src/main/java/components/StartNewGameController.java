@@ -105,6 +105,7 @@ public class StartNewGameController {
 
         antePlayerOne.setOnAction(event -> {
             if (enableDeal() == 1){
+                antePlayerOne.setEditable(false);
                 setupListeners();
             }
         });
@@ -132,6 +133,7 @@ public class StartNewGameController {
 
         antePlayerTwo.setOnAction(event -> {
             if (enableDeal() == 1){
+                antePlayerTwo.setEditable(false);
                 setupListeners();
             }
         });
@@ -253,8 +255,7 @@ public class StartNewGameController {
         playerOnePlay.setOnAction(event -> {
             playerOnePlay.setDisable(true);
             playerOneFold.setDisable(true);
-            playerOnePress = true;
-            playerTwoPressPlay = true;
+            playerOnePressPlay = true;
             bothPlayersReady();
         });
 
@@ -471,7 +472,9 @@ public class StartNewGameController {
     private void bothPlayersReady() {
 
         if (playerOnePress && (!isPlayerTwo || playerTwoPress)) { //makes it so it works for both single and 2 player mode
+            System.out.println("DID WE GET HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
             if (playerOnePressPlay) {
+                System.out.println("Should also be here");
                 playPlayerOne.setText(playerOne.getAnteBet() + "");
                 playerOne.setPlayBet(playerOne.getAnteBet());
             }
@@ -483,6 +486,7 @@ public class StartNewGameController {
 
             if (isPlayerTwo) {
                 if (playerTwoPressPlay) {
+                    System.out.println("and here also be here");
                     playPlayerTwo.setText(playerTwo.getAnteBet() + "");
                     playerTwo.setPlayBet(playerTwo.getAnteBet());
                 }
@@ -493,6 +497,7 @@ public class StartNewGameController {
                 }
             }
 
+            System.out.println("and finally here");
             revealDealersCards();
         }
     }
