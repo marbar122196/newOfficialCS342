@@ -1,0 +1,104 @@
+/* invert class colors https://www.color-hex.com/color-palette/26485 */
+.purple-outer-pane-border {
+    -fx-background-color: #9585e8;  /* Updated purple background */
+    -fx-border-color: #9585e8;      /* Updated border color to match background */
+    -fx-border-width: 15px;         /* Adjust border width as desired */
+}
+
+
+.purple-button {
+    -fx-background-color: #96a8b4;    /* Updated button background color */
+    -fx-text-fill: white;             /* White text color */
+    -fx-font-size: 24px;              /* Font size */
+    -fx-font-family: 'DotGothic16';   /* Set to custom font if applicable */
+    -fx-min-width: 200px;             /* Set minimum width */
+    -fx-pref-width: 200px;            /* Set preferred width */
+    -fx-pref-height: 40px;            /* Set preferred height for uniform height */
+    -fx-alignment: center;            /* Center text within the button */
+}
+
+
+.purple-button-smaller {
+    -fx-background-color: #96a8b4;    /* Updated button background color */
+    -fx-text-fill: white;             /* White text color */
+    -fx-font-size: 20px;              /* Font size */
+    -fx-font-family: 'DotGothic16';   /* Set to custom font if applicable */
+    -fx-min-width: 150px;             /* Set minimum width */
+    -fx-pref-width: 150px;            /* Set preferred width */
+    -fx-pref-height: 30px;            /* Set preferred height for uniform height */
+    -fx-alignment: center;            /* Center text within the button */
+}
+
+
+/* Styling for the main label text */
+.purple-label-title {
+    -fx-text-fill: #96a8b4;           /* Updated text color */
+    -fx-font-size: 30px;
+    -fx-font-family: 'DotGothic16';
+    -fx-text-alignment: center;
+}
+
+
+.purple-body-text {
+    -fx-text-fill: #96a8b4;           /* Updated text color */
+    -fx-font-size: 26px;
+    -fx-font-family: 'DotGothic16';
+    -fx-text-alignment: center;
+}
+
+
+.purple-body-text-smaller{
+    -fx-text-fill: #96a8b4;           /* Updated text color */
+    -fx-font-size: 22px;
+    -fx-font-family: 'DotGothic16';
+    -fx-text-alignment: center;
+}
+
+
+.purple-vbox {
+    -fx-alignment: center;           /* Center content within the VBox */
+    -fx-spacing: 20px;               /* Set spacing between elements */
+    -fx-background-color: #FFFFFF;   /* Background color (optional) */
+    -fx-padding: 20px;               /* Padding around content */
+}
+
+
+.options-scene {
+    -fx-background-color: #FFFFFF;  /* Replace with your desired background color */
+}
+
+
+.orange-button-smaller {
+    -fx-background-color: #96ca7f;    /* Updated button background color */
+    -fx-text-fill: #96b999;           /* Updated text color */
+    -fx-font-size: 20px;              /* Font size */
+    -fx-font-family: 'DotGothic16';   /* Set to custom font if applicable */
+    -fx-min-width: 150px;             /* Set minimum width */
+    -fx-pref-width: 200px;            /* Set preferred width */
+    -fx-pref-height: 20px;            /* Set preferred height for uniform height */
+    -fx-alignment: center;            /* Center text within the button */
+}
+
+
+.orange-button-new-look {
+    -fx-background-color: #96ca7f;     /* Solid background color */
+    -fx-background-insets: 0;          /* Removes padding around gradient */
+    -fx-background-radius: 5px;        /* Adds rounded corners, if desired */
+
+
+    /* Text style */
+    -fx-font-size: 20px;               /* Font size */
+    -fx-font-family: 'DotGothic16';    /* Custom font */
+    -fx-min-width: 150px;              /* Minimum width */
+    -fx-pref-width: 200px;             /* Preferred width */
+    -fx-pref-height: 40px;             /* Preferred height */
+    -fx-alignment: center;             /* Center text */
+
+
+    /* Rainbow gradient effect for text */
+    -fx-text-fill: #FFFFFF;
+}
+
+
+
+
