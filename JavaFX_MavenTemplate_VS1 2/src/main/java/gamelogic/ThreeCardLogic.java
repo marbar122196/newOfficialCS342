@@ -123,6 +123,9 @@ public class ThreeCardLogic{
         int playerVal = evalHand(player);
         int dealerVal = evalHand(dealer);
 
+        //2 is the player winning
+        //1 is the dealer winning
+
         if (playerVal < dealerVal && playerVal != 0){
             return 2;
         }
@@ -147,7 +150,43 @@ public class ThreeCardLogic{
                 return 2;
             }
             else{
-               return 0;
+                int[] dealerHand = new int[3];
+                int[] playerHand = new int[3];
+
+                for (int i = 0; i < 3; i++){ //pushes it into combo array
+                    dealerHand[i] = dealer.get(i).getValue();
+                    playerHand[i] = player.get(i).getValue();
+                }
+
+                Arrays.sort(dealerHand);
+                Arrays.sort(playerHand);
+
+                if (dealerHand[2] < playerHand[2]){ //if player has a higher highest card player wins
+                    return 2;
+                }
+                else if (playerHand[2] < dealerHand[2]){ //else dealer wins
+                    return 1;
+                }
+                else{ //if they have the same high card than we continue onto the next card
+                    if (dealerHand[1] < playerHand[1]){
+                        return 2;
+                    }
+                    else if (playerHand[1] < dealerHand[1]){
+                        return 1;
+                    }
+                    else{ //if its the same again we continue onto the last card and compare the value
+                        if (dealerHand[0] < playerHand[0]){
+                            return 2;
+                        }
+                        else if (playerHand[0] < dealerHand[0]){
+                            return 1;
+                        }
+                        else{
+                            return 0;
+                        }
+                    }
+                }
+
             }
 
         }

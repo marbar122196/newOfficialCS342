@@ -23,7 +23,8 @@ public class RulesScreenController {
                 "• Below Queen High: Play wager is returned, and ante is pushed.\n" +
                 "• Queen High or Better: Dealer’s hand is compared to the player’s hand:\n" +
                 "  - Dealer Wins: Player loses both ante and play wagers.\n" +
-                "  - Player Wins: Player receives 1 to 1 payout on both wagers.");
+                "  - Player Wins: Player receives 1 to 1 payout on both wagers.\n\n" +
+                "  - PLEASE input player 1's information before attempting to input player 2! And make sure to press enter :)");
     }
 
     @FXML

@@ -38,7 +38,7 @@
 
             <!-- Player 1 Controls -->
             <VBox layoutX="360" layoutY="270" spacing="10" alignment="CENTER">
-                <TextField fx:id="namePlayerOne" promptText="Enter name here" alignment="CENTER" styleClass="transparent-text-field"/>
+                <TextField fx:id="namePlayerOne" promptText="Enter name here (P1)" alignment="CENTER" styleClass="transparent-text-field"/>
                 <Label fx:id="handNamePlayerOne" text="YOUR HAND" styleClass="orange-body-text-smaller"/>
                 <HBox spacing="5">
                     <ImageView fx:id="p1c1Image1" fitWidth="75" fitHeight="100"/>
@@ -66,7 +66,7 @@
 
             <!-- Player 2 Controls -->
             <VBox layoutX="900" layoutY="270" spacing="10" alignment="CENTER">
-                <TextField fx:id="namePlayerTwo" promptText="Enter name here" alignment="CENTER" styleClass="transparent-text-field" editable="false"/>
+                <TextField fx:id="namePlayerTwo" promptText="Enter name here (P2)" alignment="CENTER" styleClass="transparent-text-field" editable="false"/>
                 <Label fx:id="handNamePlayerTwo" text="YOUR HAND" styleClass="orange-body-text-smaller"/>
                 <HBox spacing="5">
                     <ImageView fx:id="p2c1Image1" fitWidth="75" fitHeight="100"/>
