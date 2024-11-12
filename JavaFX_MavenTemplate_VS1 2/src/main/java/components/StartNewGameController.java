@@ -833,6 +833,7 @@ private void showOptionsMenu() {
     public int checkPairPlus(){
         String pairPlus = pairPlusPlayerOne.getText();
         int pairPlusNum = Integer.parseInt(pairPlus);
+        dealGame.setDisable(false);
 
         return checkBetValid(pairPlusNum);
     }
