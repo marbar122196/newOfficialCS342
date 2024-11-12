@@ -152,11 +152,6 @@ public class StartNewGameController {
                 pairPlusPlayerTwo.setDisable(false);
                 antePlayerTwo.setText(anteP1);
 
-//                //if there is a player two this will not go off in player ones setAction so we put it here
-//                anteP1 = antePlayerOne.getText();
-//                antePlayerOne.setText(anteP1);
-//                pairPlusPlayerOne.setDisable(false);
-//                antePlayerOne.setEditable(false);
                 setupListeners();
             }
         });
@@ -265,6 +260,7 @@ private void showOptionsMenu() {
 
     }
 
+    //different types of hand - used for the changing of the labels
     private void populateDiffHands() {
         diffHands.clear();
         diffHands.add("High-Card");
@@ -275,11 +271,12 @@ private void showOptionsMenu() {
         diffHands.add("Pair");
     }
 
+    //changes label to tell player what type of hand they have
     public String getHandLabel(int Hand){
-
         return diffHands.get(Hand);
     }
 
+    //function to reset the images to be face down - called after every round
     private void resetImagesFaceDown() {
         setCardImage(p1c1Image1, "/facedown.png");
         setCardImage(p1c1Image2, "/facedown.png");
@@ -292,16 +289,18 @@ private void showOptionsMenu() {
         setCardImage(dc3Image3, "/facedown.png");
     }
 
+    //helper function to enable player two name and ante text box - to be enabled only after player one at least entered in a name and ante
     private void enablePlayerTwoNameAndAnte() {
         if (!namePlayerOne.getText().isEmpty() && !antePlayerOne.getText().isEmpty()) {
-            namePlayerTwo.setEditable(true); // Enable Player 2's name input
-            antePlayerTwo.setEditable(true); // Enable Player 2's ante input
+            namePlayerTwo.setEditable(true); // enable Player 2's name input
+            antePlayerTwo.setEditable(true); // enable Player 2's ante input
             gameCommentary.setText("if a second player would like to play please enter information now :]");
         }
     }
 
     private void setupListeners() {
 
+        //actions needed for player One play
         playerOnePlay.setOnAction(event -> {
             playerOnePlay.setDisable(true);
             playerOneFold.setDisable(true);
@@ -310,6 +309,7 @@ private void showOptionsMenu() {
             bothPlayersReady();
         });
 
+        //actions needed for player one fold
         playerOneFold.setOnAction(event -> {
             playerOnePlay.setDisable(true);
             playerOneFold.setDisable(true);
@@ -318,6 +318,7 @@ private void showOptionsMenu() {
             bothPlayersReady();
         });
 
+        //actions needed for player two play
         playerTwoPlay.setOnAction(event -> {
             playerTwoPlay.setDisable(true);
             playerTwoFold.setDisable(true);
@@ -326,6 +327,7 @@ private void showOptionsMenu() {
             bothPlayersReady();
         });
 
+        //actions needed for player two fold
         playerTwoFold.setOnAction(event -> {
             playerTwoPlay.setDisable(true);
             playerTwoFold.setDisable(true);
@@ -656,30 +658,31 @@ private void showOptionsMenu() {
     //evaluates the pair plus bet whether they won it or lost it and changes winnings accordingly
     private int evaluatePairPlusBet(Player player, int playerPairPlusResult, int winnings, String playerName) {
         if (playerPairPlusResult != -2) { //if playerPairPlusResult is -2 that means they did not make a bet
-            if (playerPairPlusResult != -1) {
-                winnings = winnings + playerPairPlusResult;
+            if (playerPairPlusResult != -1) { //if playerPairResult is -1 that means they lost so this is checking if they won
+                winnings = winnings + playerPairPlusResult; //add pairPlusWager to winnings
                 gameCommentary.appendText(" " + playerName + " won pair plus wager :D +" + playerPairPlusResult);
             } else {
-                winnings = winnings - player.getPairPlusBet();
+                winnings = winnings - player.getPairPlusBet(); //if dont have a special combo - subtract from winnings
                 gameCommentary.appendText(" " + playerName + " lost pair plus wager :( -" + player.getPairPlusBet());
             }
         }
         return winnings;
     }
 
+    //after deal and after they pressed play or fold we have to evaluate their bets
     private void evaluateWinner() {
 
-        int dealHandVal = ThreeCardLogic.evalHand(dealerHand);
-        if (dealHandVal == 0) {
-            int highestCard = ThreeCardLogic.getHighest(dealerHand);
+        int dealHandVal = ThreeCardLogic.evalHand(dealerHand); //evalauates what type of hand the dealer had
+        if (dealHandVal == 0) { //if dealer has a high card combination we need to check dealer at least has a queen high
+            int highestCard = ThreeCardLogic.getHighest(dealerHand); //grabs largest value card
 
 
-            if (highestCard < 12) {
+            if (highestCard < 12) { //if largest value card is not a queen dealer does not qualify
                 gameCommentary.setText("Dealer does not have at least Queen high; ante wager is pushed");
 
 
-                antePlayerOne.setEditable(false);
-                pairPlusPlayerOne.setDisable(false);
+                antePlayerOne.setEditable(false); //we lock ante until next round
+                pairPlusPlayerOne.setDisable(false); //should be able to change their PP
                 pairPlusPlayerOne.setEditable(true);
 
 
@@ -688,13 +691,15 @@ private void showOptionsMenu() {
                     pairPlusPlayerTwo.setDisable(false); //they should be able to change their PP bet right?
                     pairPlusPlayerOne.setEditable(true);
                 }
+
+                //although dealer does not qualify we still need to evaluate the players hand if they made a PP bet
                 if (ifPairPlusBetMadePlayerOne() != 2){
-                    int p1Winnings = evaluatePairPlusBet(playerOne, ifPairPlusBetMadePlayerOne(), playerOne.getTotalWinnings(), "Player One");
+                    int p1Winnings = evaluatePairPlusBet(playerOne, ifPairPlusBetMadePlayerOne(), playerOne.getTotalWinnings(), "Player One"); //calls helper function to evaluate whether they won or lost their PP bet
                     playerOne.setTotalWinnings(p1Winnings);
                     amtWinningsPlayerOne.setText(playerOne.getTotalWinnings() + "");
                 }
                 if (isPlayerTwo) {
-                    int p2Winnings = evaluatePairPlusBet(playerTwo, ifPairPlusBetMadePlayerTwo(), playerTwo.getTotalWinnings(), "Player Two");
+                    int p2Winnings = evaluatePairPlusBet(playerTwo, ifPairPlusBetMadePlayerTwo(), playerTwo.getTotalWinnings(), "Player Two"); //does it for player two also
                     playerTwo.setTotalWinnings(p2Winnings);
                     amtWinningsPlayerTwo.setText(playerTwo.getTotalWinnings() + "");
                 }
@@ -702,117 +707,120 @@ private void showOptionsMenu() {
             }
         }
 
-        int winnerP1 = ThreeCardLogic.compareHands(dealerHand, playerOneHand);
+        //if dealer does qualify execute the below
+        int winnerP1 = ThreeCardLogic.compareHands(dealerHand, playerOneHand); //compare hands to see who won
+        //we need to affect winnings
         int winningsP1 = playerOne.getTotalWinnings();
         int winningsP2 = playerTwo.getTotalWinnings();
 
-
+        //if both players pressed play we evaluate them together
         if (playerOnePressPlay && playerTwoPressPlay){
             int winnerP2 = ThreeCardLogic.compareHands(dealerHand, playerTwoHand);
 
-            if (winnerP1 == 2 && winnerP2 == 2){
+            if (winnerP1 == 2 && winnerP2 == 2){ //if both players won
                 winningsP1 = winningsP1 + ((playerOne.getAnteBet() + playerOne.getPlayBet()) * 2);
                 winningsP2 = winningsP2 + ((playerTwo.getAnteBet() + playerTwo.getPlayBet()) * 2);
 
                 gameCommentary.setText("Both players won against the dealer! :D");
             }
-            else if (winnerP1 == 1 && winnerP2 == 2){
+            else if (winnerP1 == 1 && winnerP2 == 2){ //if player one lost but player two won
                 gameCommentary.setText("Player 1 lost against dealer. Congrats to Player 2!");
                 winningsP1 = winningsP1 - (playerOne.getAnteBet() + playerOne.getPlayBet());
                 winningsP2 = winningsP2 + ((playerTwo.getAnteBet() + playerTwo.getPlayBet()) * 2);
             }
-            else if (winnerP1 == 2 && winnerP2 == 1){
+            else if (winnerP1 == 2 && winnerP2 == 1){ //if player one won but player two lost
                 gameCommentary.setText("Player 2 lost against dealer. Congrats to Player 1");
                 winningsP1 = winningsP1 + ((playerOne.getAnteBet() + playerOne.getPlayBet()) * 2);
                 winningsP2 = winningsP2 - (playerTwo.getAnteBet() + playerTwo.getPlayBet());
             }
-            else if (winnerP1 == 1 && winnerP2 == 1){
+            else if (winnerP1 == 1 && winnerP2 == 1){ //if they both lost
                 gameCommentary.setText("Both player lost against the dealer! >:)");
                 winningsP1 = winningsP1 - (playerOne.getAnteBet() + playerOne.getAnteBet());
                 winningsP2 = winningsP2 - (playerTwo.getAnteBet() + playerTwo.getAnteBet());
             }
-            else{
-                gameCommentary.setText("This game is a tie! :O");
+            else{ //now we have to go into whether one of them or both of them tied with the dealer
+
+                if (winnerP1 == 0 && winnerP2 == 1){ //if player one tied but player two lost
+                    gameCommentary.setText("Player 1 tied with dealer, Player 2 lost!");
+                    winningsP2 = winningsP2 - (playerTwo.getAnteBet() + playerTwo.getAnteBet());
+                }
+                else if (winnerP1 == 0 && winnerP2 == 2){ //if player one tied but player two won
+                    gameCommentary.setText("Player 1 tied with dealer, Player 2 won!");
+                    winningsP2 = winningsP2 + (playerTwo.getAnteBet() + playerTwo.getPlayBet());
+                }
+                else if (winnerP1 == 0 && winnerP2 == 0){ //if they both tied
+                    gameCommentary.setText("This game is a tie! :O");
+                }
+                else if (winnerP1 == 1 && winnerP2 == 0){ //if player one lost but player two tied
+                    gameCommentary.setText("Player 2 tied with dealer, Player 1 lost!");
+                    winningsP1 = winningsP1 - ((playerOne.getAnteBet() + playerOne.getPlayBet()) * 2);
+                }
+                else if (winnerP1 == 2 && winnerP2 == 0){ //if player one won but player two tied
+                    gameCommentary.setText("Player 2 tied with dealer, Player 1 won!");
+                    winningsP1 = winningsP1 + ((playerOne.getAnteBet() + playerOne.getPlayBet()) * 2);
+                }
             }
         }
-        else if ((playerOnePressPlay || playerTwoPressPlay) && (playerOnePressFold || playerTwoPressFold)){
+        else if ((playerOnePressPlay || playerTwoPressPlay) && (playerOnePressFold || playerTwoPressFold)){ //else if only one of them decided to play against dealer and the other folded
             int p2Hand = ThreeCardLogic.evalHand(playerTwoHand);
             int winnerP2 = ThreeCardLogic.compareHands(dealerHand, playerTwoHand);
 
 
-            if (winnerP1 == 2 || winnerP2 == 2){
-                if (winnerP1 == 2){
+            if (winnerP1 == 2 || winnerP2 == 2){ //same as above except for or statements because either player could be the one playing
+                if (winnerP1 == 2){ //if player one was the one who played and wone
                     winningsP1 = winningsP1 + ((playerOne.getAnteBet() + playerOne.getPlayBet()) * 2);
                 }
-                else if (winnerP2 == 2){
+                else if (winnerP2 == 2){ //if player two was the ony who played and won
                     winningsP2 = winningsP2 + ((playerTwo.getAnteBet() + playerTwo.getPlayBet()) * 2);
                 }
                 gameCommentary.setText("Player won against dealer! :D");
             }
-            else if (winnerP1 == 1 || winnerP2 == 1){
-                if (winnerP1 == 1){
+            else if (winnerP1 == 1 || winnerP2 == 1){ //if they lost againt the dealer
+                if (winnerP1 == 1){ //if player one was the one who played and lost
                     winningsP1 = winningsP1 - (playerOne.getAnteBet() + playerOne.getPlayBet());
                 }
-                else if (winnerP2 == 1){
+                else if (winnerP2 == 1){ //if player two was the one who played and lost
                     winningsP2 = winningsP2 - (playerTwo.getAnteBet() + playerTwo.getPlayBet());
                 }
                 gameCommentary.setText("Dealer won against player! >:)");
             }
-            else {
+            else { //else if it resulted in a tie
                 gameCommentary.setText("This game is a tie! :O");
             }
         }
-        else if (playerOnePressPlay && !isPlayerTwo){
-            if (winnerP1 == 2){
+        else if (playerOnePressPlay && !isPlayerTwo){ //for single player mode
+            if (winnerP1 == 2){ //if player won
                 winningsP1 = winningsP1 + ((playerOne.getAnteBet() + playerOne.getPlayBet()) * 2);
                 gameCommentary.setText("Player won against dealer!");
             }
-            else if (winnerP1 == 1){
+            else if (winnerP1 == 1){ //if player lost
                 winningsP1 = winningsP1 - (playerOne.getAnteBet() + playerOne.getPlayBet());
                 gameCommentary.setText("Player lost against dealer");
             }
-            else{
+            else{ //if player tied
                 gameCommentary.setText("This is a draw!");
             }
         }
 
+        //after we evaluate the ante and play bets now we need to evaluate their PP bets (if they made one)
         int playerOnePairPlusMade = ifPairPlusBetMadePlayerOne();
         int playerTwoPairPlusMade = ifPairPlusBetMadePlayerTwo();
 
-//        if (playerOnePairPlusMade != -2){
-//            if (playerOnePairPlusMade != -1){
-//                winningsP1 = winningsP1 + playerOnePairPlusMade;
-//                gameCommentary.appendText(" Player One won pair plus wager :D +" + playerOnePairPlusMade);
-//            }
-//            else{
-//                winningsP1 = winningsP1 - playerOne.getPairPlusBet();
-//                gameCommentary.appendText(" Player One lost pair plus wager :( -" + playerOne.getPairPlusBet());
-//            }
-//        }
-//
-//        if (playerTwoPairPlusMade != -2){
-//            if (playerTwoPairPlusMade != -1){
-//                winningsP2 = winningsP2 + playerTwoPairPlusMade;
-//                gameCommentary.appendText(" Player Two won pair plus wager +" + playerTwoPairPlusMade);
-//            }
-//            else {
-//                winningsP2 = winningsP2 - playerTwo.getPairPlusBet();
-//                gameCommentary.appendText(" Player Two lost pair plus wager :( -" + playerTwo.getPairPlusBet());
-//            }
-//        }
+        winningsP1 = evaluatePairPlusBet(playerOne, ifPairPlusBetMadePlayerOne(), winningsP1, "Player One"); //for player one
 
-        winningsP1 = evaluatePairPlusBet(playerOne, ifPairPlusBetMadePlayerOne(), winningsP1, "Player One");
+        //for plater two
         if (isPlayerTwo) {
             winningsP2 = evaluatePairPlusBet(playerTwo, ifPairPlusBetMadePlayerTwo(), winningsP2, "Player Two");
         }
 
+        //now we need to set winnings and set the text box for winnings correct
         playerOne.setTotalWinnings(winningsP1);
         amtWinningsPlayerOne.setText(playerOne.getTotalWinnings() + "");
-        antePlayerOne.setEditable(true);
-        antePlayerOne.setDisable(false);
-        pairPlusPlayerOne.setDisable(false);
+        antePlayerOne.setEditable(true); //make ante editable again if they want to
+        antePlayerOne.setDisable(false); //enable it
+        pairPlusPlayerOne.setDisable(false); //enable PP
 
-        if (isPlayerTwo){
+        if (isPlayerTwo){ //same thing as above except for player two
             antePlayerTwo.setEditable(true);
             antePlayerTwo.setDisable(false);
             playerTwo.setTotalWinnings(winningsP2);
@@ -821,6 +829,7 @@ private void showOptionsMenu() {
         }
     }
 
+    //check if pair plus bet is a valid bet
     public int checkPairPlus(){
         String pairPlus = pairPlusPlayerOne.getText();
         int pairPlusNum = Integer.parseInt(pairPlus);
@@ -830,38 +839,34 @@ private void showOptionsMenu() {
 
     //helper function to determine winnings for pair plus bet for playerOne
     public int ifPairPlusBetMadePlayerOne(){
-        int playerPP = ThreeCardLogic.evalHand(playerOneHand);
+        int playerPP = ThreeCardLogic.evalHand(playerOneHand); //grab player ones hand
 
         if (pairPlusPlayerOne.getText().isEmpty()){
-            return -2;
+            return -2; //means they didnt make a PP bet
         }
 
         if (playerPP > 0){
-            return ThreeCardLogic.evalPPWinnings(playerOneHand, playerOne.getPairPlusBet());
+            return ThreeCardLogic.evalPPWinnings(playerOneHand, playerOne.getPairPlusBet()); //if they have better than a high card they are eligible for PP so call evalPPWinnings
         }
         else {
-            return -1;
+            return -1; //if they have a high card they are not eligible so return -1
         }
     }
 
+    //helper funciton to determine winnings for playerOne
     public int ifPairPlusBetMadePlayerTwo(){
-        int playerPP = ThreeCardLogic.evalHand(playerTwoHand);
+        int playerPP = ThreeCardLogic.evalHand(playerTwoHand); // grab player twos hand
 
-        if (pairPlusPlayerTwo.getText().isEmpty()){
+        if (pairPlusPlayerTwo.getText().isEmpty()){// check if player twos PP bet is emoty
             return -2;
         }
 
         if (playerPP > 0){
-            return ThreeCardLogic.evalPPWinnings(playerTwoHand, playerTwo.getPairPlusBet());
+            return ThreeCardLogic.evalPPWinnings(playerTwoHand, playerTwo.getPairPlusBet()); //if eligible for PP evalute the bet
         }
         else {
-            return -1;
+            return -1; //not eligible
         }
-    }
-
-    public void setIsPlayerTwo(boolean isPlayerTwo) {
-        this.isPlayerTwo = isPlayerTwo;
-        namePlayerTwo.setEditable(isPlayerTwo);
     }
 
 }

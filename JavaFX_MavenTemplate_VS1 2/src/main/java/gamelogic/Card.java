@@ -11,9 +11,9 @@ public class Card {
 
     public char getSuit() {
         return suit;
-    }
+    } //returns suit
 
     public int getValue() {
         return value;
-    }
+    } //returns value of card
 }

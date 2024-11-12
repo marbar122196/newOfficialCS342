@@ -12,7 +12,7 @@ public class Dealer {
         dealersHand = new ArrayList<>();
     }
 
-    public ArrayList<Card> dealHand() {
+    public ArrayList<Card> dealHand() { //deals hand to dealer
         if (theDeck.size() <= 34){
             theDeck.newDeck();
         }
@@ -27,13 +27,13 @@ public class Dealer {
         return dealersHand;
     }
 
-    public void dealPlayer(Player player){
+    public void dealPlayer(Player player){ //deals hand to player
         if (theDeck.size() <= 34){
             theDeck.newDeck();
         }
 
         ArrayList<Card> hand = player.getHand();
-        hand.clear();
+        hand.clear(); //clear the hand before adding to it
 
         for (int i = 0; i < 3; i++){
             hand.add(theDeck.get(0));
@@ -45,10 +45,10 @@ public class Dealer {
 
     public Deck getDeck(){
         return theDeck;
-    }
+    } //return the deck of cards
 
     public ArrayList<Card> getHand(){
         return dealersHand;
-    }
+    } //returns the hand of the dealer
 
 }
