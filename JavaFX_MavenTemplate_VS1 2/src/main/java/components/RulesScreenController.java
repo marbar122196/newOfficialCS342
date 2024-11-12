@@ -10,7 +10,7 @@ public class RulesScreenController {
     private Label rulesText;  // Link to the Label in FXML
 
     @FXML
-    private void initialize() {
+    private void initialize() { //Rules that are shown
         rulesText.setText("Ante Wager: Players place an ante wager ($5 - $25).\n\n" +
                 "Optional Pair Plus Bet: Players can also make a Pair Plus wager ($5 - $25), paying\n" +
                 "based solely on their hand if it has at least a pair of 2’s, regardless of the dealer's hand.\n\n" +
