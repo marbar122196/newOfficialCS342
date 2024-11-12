@@ -1,12 +1,12 @@
-/* Class for the main border and background styling */
+/* same as style.css but the colors are swapped*/
 .purple-outer-pane-border {
-    -fx-background-color: #9585e8;  /* Updated purple background */
-    -fx-border-color: #9585e8;      /* Updated border color */
+    -fx-background-color: #9585e8;
+    -fx-border-color: #9585e8;
     -fx-border-width: 15px;
 }
 
 .purple-button {
-    -fx-background-color: #96a8b4;    /* Updated button background color */
+    -fx-background-color: #96a8b4;
     -fx-text-fill: white;
     -fx-font-size: 24px;
     -fx-font-family: 'DotGothic16';
@@ -27,13 +27,13 @@
     -fx-alignment: center;
 }
 .game-commentary {
-    -fx-background-color: #bde3a3;             /* Light green, inverted from orange */
-    -fx-control-inner-background: #FFFF;     /* Inner background for TextArea */
-    -fx-text-fill: #3b5e42;                    /* Dark green text */
+    -fx-background-color: #bde3a3;
+    -fx-control-inner-background: #FFFF;
+    -fx-text-fill: #3b5e42;
     -fx-font-size: 18px;
     -fx-font-family: 'DotGothic16';
     -fx-padding: 10px;
-    -fx-border-color: transparent;             /* Remove border */
+    -fx-border-color: transparent;
 }
 
 .purple-label-title {
@@ -69,12 +69,12 @@
 }
 
 .new-game-scene {
-    -fx-background-color: #bde3a3;  /* Inverted from orange */
+    -fx-background-color: #bde3a3;
 }
 
 .orange-button {
-    -fx-background-color: #bde3a3;    /* Updated to match inverted style */
-    -fx-text-fill: #3b5e42;           /* Dark green */
+    -fx-background-color: #bde3a3;
+    -fx-text-fill: #3b5e42;
     -fx-font-size: 26px;
     -fx-font-family: 'DotGothic16';
     -fx-min-width: 200px;
@@ -160,18 +160,18 @@
     -fx-font-size: 15px;
 }
 .orange-inner-border {
-    -fx-background-color: #bde3a3;      /* Inverted light green color */
+    -fx-background-color: #bde3a3;
     -fx-border-radius: 5px;
     -fx-padding: 10px;
 }
 .orange-button-smallest-other {
-    -fx-background-color: #FFFF;    /* Inverted background color */
-    -fx-text-fill: #3b5e42;           /* Dark green text color */
-    -fx-font-size: 16px;              /* Font size */
-    -fx-font-family: 'DotGothic16';   /* Custom font */
-    -fx-min-width: 75px;              /* Minimum width */
-    -fx-pref-width: 110px;            /* Preferred width for buttons */
-    -fx-pref-height: 30px;            /* Adjusted height */
-    -fx-alignment: center;            /* Center text within the button */
-    -fx-background-radius: 5px;       /* Optional rounded corners */
+    -fx-background-color: #FFFF;
+    -fx-text-fill: #3b5e42;
+    -fx-font-size: 16px;
+    -fx-font-family: 'DotGothic16';
+    -fx-min-width: 75px;
+    -fx-pref-width: 110px;
+    -fx-pref-height: 30px;
+    -fx-alignment: center;
+    -fx-background-radius: 5px;
 }

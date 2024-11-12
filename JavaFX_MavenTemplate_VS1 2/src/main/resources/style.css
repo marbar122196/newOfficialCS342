@@ -1,40 +1,35 @@
-
-/*purple css pop up stuff*/
-/* Class for the main border and background styling */
+/* Purple pane styling with background and border color */
 .purple-outer-pane-border {
-    -fx-background-color: #A30262;  /* Purple background */
-    -fx-border-color: #A30262;      /* Optional border color to match background */
-    -fx-border-width: 15px;         /* Adjust border width as desired */
+    -fx-background-color: #A30262;
+    -fx-border-color: #A30262;
+    -fx-border-width: 15px;
 }
 
-
+/* Styling for large purple button */
 .purple-button {
-    -fx-background-color: #B55690;    /* Purple background color */
-    -fx-text-fill: white;             /* White text color */
-    -fx-font-size: 26px;              /* Font size */
-    -fx-font-family: 'DotGothic16';   /* Set to custom font if applicable */
-    -fx-min-width: 200px;             /* Set minimum width */
-    -fx-pref-width: 200px;            /* Set preferred width */
-    -fx-pref-height: 40px;            /* Set preferred height for uniform height */
-    -fx-alignment: center;            /* Center text within the button */
+    -fx-background-color: #B55690;
+    -fx-text-fill: white;
+    -fx-font-size: 26px;
+    -fx-font-family: 'DotGothic16';
+    -fx-min-width: 200px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 40px;
+    -fx-alignment: center;
 }
 
-
+/* Styling for smaller purple button */
 .purple-button-smaller {
-    -fx-background-color: #B55690;    /* Purple background color */
-    -fx-text-fill: white;             /* White text color */
-    -fx-font-size: 22px;              /* Font size */
-    -fx-font-family: 'DotGothic16';   /* Set to custom font if applicable */
-    -fx-min-width: 150px;             /* Set minimum width */
-    -fx-pref-width: 150px;            /* Set preferred width */
-    -fx-pref-height: 30px;            /* Set preferred height for uniform height */
-    -fx-alignment: center;            /* Center text within the button */
+    -fx-background-color: #B55690;
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-family: 'DotGothic16';
+    -fx-min-width: 150px;
+    -fx-pref-width: 150px;
+    -fx-pref-height: 30px;
+    -fx-alignment: center;
 }
 
-
-
-
-/* Styling for the main label text */
+/* Styling for main label text with purple color */
 .purple-label-title {
     -fx-text-fill: #B55690;
     -fx-font-size: 32px;
@@ -42,7 +37,7 @@
     -fx-text-alignment: center;
 }
 
-
+/* Styling for purple body text */
 .purple-body-text {
     -fx-text-fill: #B55690;
     -fx-font-size: 27px;
@@ -50,154 +45,156 @@
     -fx-text-alignment: center;
 }
 
-
-.purple-body-text-smaller{
+/* Styling for smaller purple body text */
+.purple-body-text-smaller {
     -fx-text-fill: #B55690;
     -fx-font-size: 24px;
     -fx-font-family: 'DotGothic16';
     -fx-text-alignment: center;
 }
 
-
+/* VBox layout styling with purple theme */
 .purple-vbox {
-    -fx-alignment: center;           /* Center content within the VBox */
-    -fx-spacing: 20px;               /* Set spacing between elements */
-    -fx-background-color: #FFFFFF;   /* Background color (optional) */
-    -fx-padding: 20px;               /* Padding around content */
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 20px;
 }
 
-
+/* Styling for options scene background */
 .options-scene {
-    -fx-background-color: #FFFFFF;  /* Replace with your desired background color */
+    -fx-background-color: #FFFFFF;
 }
 
-.new-game-scene{
-
-    -fx-background-color: #FF9A56;  /* Replace with your desired background color */
-
+/* Styling for new game scene background */
+.new-game-scene {
+    -fx-background-color: #FF9A56;
 }
 
+/* Styling for large orange button */
 .orange-button {
-    -fx-background-color: #FF9A56;    /* Purple background color */
-    -fx-text-fill: #D52D00;             /* White text color */
-    -fx-font-size: 26px;              /* Font size */
-    -fx-font-family: 'DotGothic16';   /* Set to custom font if applicable */
-    -fx-min-width: 200px;             /* Set minimum width */
-    -fx-pref-width: 200px;            /* Set preferred width */
-    -fx-pref-height: 40px;            /* Set preferred height for uniform height */
-    -fx-alignment: center;            /* Center text within the button */
+    -fx-background-color: #FF9A56;
+    -fx-text-fill: #D52D00;
+    -fx-font-size: 26px;
+    -fx-font-family: 'DotGothic16';
+    -fx-min-width: 200px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 40px;
+    -fx-alignment: center;
 }
+
+/* Styling for orange "deal" button with white background */
 .orange-button-deal {
-    -fx-background-color: #FFFFFF;    /* White background color */
-    -fx-text-fill: #D52D00;           /* Text color */
-    -fx-font-size: 26px;              /* Font size */
-    -fx-font-family: 'DotGothic16';   /* Custom font */
-    -fx-min-width: 200px;             /* Minimum width */
-    -fx-pref-width: 200px;            /* Preferred width */
-    -fx-pref-height: 40px;            /* Preferred height */
-    -fx-alignment: center;            /* Center text within the button */
-    /*-fx-translate-x: 625px;           !* Move button horizontally *!*/
-    /*-fx-translate-y: 300px;           !* Move button vertically *!*/
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #D52D00;
+    -fx-font-size: 26px;
+    -fx-font-family: 'DotGothic16';
+    -fx-min-width: 200px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 40px;
+    -fx-alignment: center;
 }
 
+/* Styling for smaller orange button */
 .orange-button-smaller {
-    -fx-background-color: #FF9A56;    /* Purple background color */
-    -fx-text-fill: #D52D00;             /* White text color */
-    -fx-font-size: 22px;              /* Font size */
-    -fx-font-family: 'DotGothic16';   /* Set to custom font if applicable */
-    -fx-min-width: 150px;             /* Set minimum width */
-    -fx-pref-width: 200px;            /* Set preferred width */
-    -fx-pref-height: 20px;            /* Set preferred height for uniform height */
-    -fx-alignment: center;            /* Center text within the button */
+    -fx-background-color: #FF9A56;
+    -fx-text-fill: #D52D00;
+    -fx-font-size: 22px;
+    -fx-font-family: 'DotGothic16';
+    -fx-min-width: 150px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 20px;
+    -fx-alignment: center;
 }
 
-
-
+/* Styling for orange "new look" button with rounded corners */
 .orange-button-new-look {
-    -fx-background-color: #FF9A56;     /* Solid background color */
-    -fx-background-insets: 0;          /* Removes padding around gradient */
-    -fx-background-radius: 5px;        /* Adds rounded corners, if desired */
-
-
-    /* Text style */
-    -fx-font-size: 20px;               /* Font size */
-    -fx-font-family: 'DotGothic16';    /* Custom font */
-    -fx-min-width: 150px;              /* Minimum width */
-    -fx-pref-width: 200px;             /* Preferred width */
-    -fx-pref-height: 40px;             /* Preferred height */
-    -fx-alignment: center;             /* Center text */
-
-
-    /* Rainbow gradient effect for text */
+    -fx-background-color: #FF9A56;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5px;
+    -fx-font-size: 20px;
+    -fx-font-family: 'DotGothic16';
+    -fx-min-width: 150px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 40px;
+    -fx-alignment: center;
     -fx-text-fill: #FFFFFF;
 }
 
-.orange-body-text{
+/* Styling for orange body text */
+.orange-body-text {
     -fx-text-fill: #D52D00;
     -fx-font-size: 24px;
     -fx-font-family: 'DotGothic16';
     -fx-text-alignment: center;
 }
 
-.orange-body-text-smaller{
+/* Styling for smaller orange body text */
+.orange-body-text-smaller {
     -fx-text-fill: #D52D00;
     -fx-font-size: 18px;
     -fx-font-family: 'DotGothic16';
     -fx-text-alignment: center;
 }
 
+/* Styling for the smallest orange button */
 .orange-button-smallest {
-    -fx-background-color: #FFFFFF;    /* Purple background color */
-    -fx-text-fill: #D52D00;             /* White text color */
-    -fx-font-size: 16px;              /* Font size */
-    -fx-font-family: 'DotGothic16';   /* Set to custom font if applicable */
-    -fx-min-width: 75px;             /* Set minimum width */
-    -fx-pref-width: 75px;            /* Set preferred width */
-    -fx-pref-height: 10px;            /* Set preferred height for uniform height */
-    -fx-alignment: center;            /* Center text within the button */
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #D52D00;
+    -fx-font-size: 16px;
+    -fx-font-family: 'DotGothic16';
+    -fx-min-width: 75px;
+    -fx-pref-width: 75px;
+    -fx-pref-height: 10px;
+    -fx-alignment: center;
 }
 
+/* Styling for outer pane border with orange and white background */
 .orange-outer-pane-border {
     -fx-background-color: white, #FF9A56;
     -fx-background-insets: 0, 15px;
     -fx-background-radius: 10px, 5px;
     -fx-padding: 15px;
     -fx-border-radius: 15px;
-    /*-fx-pref-width: 400px;*/
-    /*-fx-pref-height: 200px;*/
 }
+
+/* Styling for transparent text field with dark orange text color */
 .transparent-text-field {
-    -fx-background-color: transparent; /* Make background transparent */
-    -fx-text-fill: #D52D00; /* Dark orange text color */
-    -fx-prompt-text-fill: #D52D00; /* Dark orange prompt text */
+    -fx-background-color: transparent;
+    -fx-text-fill: #D52D00;
+    -fx-prompt-text-fill: #D52D00;
     -fx-font-family: 'DotGothic16';
-    -fx-border-color: transparent; /* Remove border if desired */
-    -fx-font-size: 15px; /* Adjust font size as needed */
+    -fx-border-color: transparent;
+    -fx-font-size: 15px;
 }
-/* Styling for the game commentary text area */
+
+/* Styling for game commentary text area */
 .game-commentary {
-    -fx-background-color: #FF9A56;      /* Orange background for the TextArea */
-    -fx-control-inner-background: #FFFF;  /* Inner background for TextArea */
-    -fx-text-fill: #D52D00;             /* Text color */
+    -fx-background-color: #FF9A56;
+    -fx-control-inner-background: #FFFF;
+    -fx-text-fill: #D52D00;
     -fx-font-size: 18px;
     -fx-font-family: 'DotGothic16';
     -fx-padding: 10px;
-    -fx-border-color: transparent;      /* Remove border */
+    -fx-border-color: transparent;
 }
+
+/* Styling for inner border with orange background */
 .orange-inner-border {
-    -fx-background-color: #FF9A56;      /* Original orange color */
+    -fx-background-color: #FF9A56;
     -fx-border-radius: 5px;
     -fx-padding: 10px;
 }
 
+/* Additional styling for the smallest orange button variant */
 .orange-button-smallest-other {
-    -fx-background-color: #FFFFFF;      /* Background color */
-    -fx-text-fill: #D52D00;             /* Text color */
-    -fx-font-size: 16px;                /* Font size */
-    -fx-font-family: 'DotGothic16';     /* Font family */
-    -fx-min-width: 100px;               /* Set minimum width */
-    -fx-pref-width: 110px;              /* Set preferred width */
-    -fx-pref-height: 30px;              /* Set preferred height */
-    -fx-alignment: center;              /* Center text within the button */
-    -fx-padding: 5px;                   /* Adjust padding if needed */
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #D52D00;
+    -fx-font-size: 16px;
+    -fx-font-family: 'DotGothic16';
+    -fx-min-width: 100px;
+    -fx-pref-width: 110px;
+    -fx-pref-height: 30px;
+    -fx-alignment: center;
+    -fx-padding: 5px;
 }

@@ -10,7 +10,7 @@ public class WinningHandsScreenController {
     private Label winningHandsText;  // Link to the Label in FXML
 
     @FXML
-    private void initialize() {
+    private void initialize() {//Winning hands that are shown
         winningHandsText.setText(
                 "Straight Flush: 40 to 1\n\n" +
                         "Three of a Kind: 30 to 1\n\n" +
